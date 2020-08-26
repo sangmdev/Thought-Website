@@ -1,0 +1,23 @@
+<div>
+  <button (click)="fetchScores()">Refresh Scores</button>
+
+  <table mat-table>
+    <tr>
+      <th>Character Name</th>
+      <th>Current Score</th>
+    </tr>
+    <tr *ngFor="let score of allScores">
+      <th>{{score.name}}</th>
+      <th>{{score.score}}</th>
+    </tr>
+  </table>
+
+</div>
+<hr />
+<div>
+  <h1>Io Score Search</h1>
+  <input type="text" [(ngModel)]="charName" />
+  <button (click)="getScoreFromDb()">Get Score from Database</button>
+
+  <h1 *ngIf="dbSearchCompleted">Your score is: {{dbScore}}</h1>
+</div>
