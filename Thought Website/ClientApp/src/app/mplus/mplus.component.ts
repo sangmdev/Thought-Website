@@ -20,8 +20,8 @@ export class MPlusComponent implements OnInit {
 
   }
 
-  getScoreFromDb() {
-    this.dbScore = this.MPlusService.getSavedScore(this.charName)
+  async getScoreFromDb() {
+    this.dbScore = await this.MPlusService.getSavedScore(this.charName)
     this.dbSearchCompleted = true
   }
 

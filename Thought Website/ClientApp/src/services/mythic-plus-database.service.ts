@@ -9,15 +9,12 @@ import * as firebase from 'firebase/app';
 export class MythicPlusDatabase{
 
   //gets a score for the selected char from the db
-  getSavedScore(charName){
-    var score
+  async getSavedScore (charName){
+    let score
     const ref = firebase.database().ref('characters/' + charName);
-    ref.on('value', function(snapshot) {
-      console.log({snapshot})
-      score = snapshot.val().score;
-      console.log('score here', score)
-    });
-    console.log('score', score)
+    await ref.once('value', function(snapshot) {
+      score = snapshot.val().score
+    })
     return score
   }
 
