@@ -16,6 +16,10 @@ export class RaiderIoService {
     return this.http.get(`https://raider.io/api/v1/characters/profile?region=us&realm=sargeras&name=${charName}&fields=mythic_plus_scores_by_season%3Acurrent`);
   }
 
+  async getCharacterGuildData(charName){
+    return await this.http.get(`https://raider.io/api/v1/characters/profile?region=us&realm=sargeras&name=${charName}&fields=guild`).toPromise()
+  }
+
   getScore(charName){
     this.getCharacterData(charName).subscribe(
       results => {

@@ -15,6 +15,7 @@ export class MPlusComponent implements OnInit {
   dbScore: number;
   allScores: ICharacterData[];
   dbSearchCompleted = false;
+  addCharName: string;
 
   constructor(private readonly raiderIoService: RaiderIoService, readonly MPlusService: MythicPlusDatabase) {
 
@@ -31,6 +32,10 @@ export class MPlusComponent implements OnInit {
 
   fetchScores() {
     this.raiderIoService.refreshScores()
+  }
+
+  async addCharacter(){
+    await this.MPlusService.addCharacter(this.addCharName)
   }
 
   ngOnInit() {
