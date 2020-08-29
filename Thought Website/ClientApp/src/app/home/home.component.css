@@ -1,0 +1,35 @@
+
+.bg-image {
+  /* Full height */
+  height: 100%;
+  min-width: 100%;
+  position:absolute;
+  margin-bottom:-77px;
+  top:0px;
+  right:0;
+  left:0;
+  bottom:0;
+  z-index:0;
+  overflow: hidden;
+  opacity:0.9;
+}
+
+.homepage-container {
+  display: flex;
+  height: 100%;
+  align-items:center;
+}
+
+.guild-name-container {
+  position: relative;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 22%;
+}
+
+.guild-name {
+  margin-top: 50px;
+  color: white;
+  z-index: 0;
+  font-size: 4rem;
+}
