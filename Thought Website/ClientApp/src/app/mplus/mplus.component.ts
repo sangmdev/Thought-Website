@@ -26,8 +26,8 @@ export class MPlusComponent implements OnInit {
     this.dbSearchCompleted = true
   }
 
-  getAllScoresFromDb() {
-    this.allScores = this.MPlusService.getAllSavedScores()
+  async getAllScoresFromDb() {
+    this.allScores = await this.MPlusService.getAllSavedScores()
   }
 
   fetchScores() {

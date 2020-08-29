@@ -2,6 +2,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/internal/Observable";
+import { ICharacterGuildData } from '../app/interfaces/ICharacterGuildData';
+import { IRaiderIoCharacterGuildData } from '../app/interfaces/IRaiderIoCharacterGuildData';
+
 
 import * as firebase from 'firebase/app';
 
@@ -17,7 +20,10 @@ export class RaiderIoService {
   }
 
   async getCharacterGuildData(charName){
-    return await this.http.get(`https://raider.io/api/v1/characters/profile?region=us&realm=sargeras&name=${charName}&fields=guild`).toPromise()
+    let data: IRaiderIoCharacterGuildData
+    data = await this.http.get<IRaiderIoCharacterGuildData>(`https://raider.io/api/v1/characters/profile?region=us&realm=sargeras&name=${charName}&fields=guild%2Cmythic_plus_scores_by_season%3Acurrent`).toPromise()
+    return data
+
   }
 
   getScore(charName){
@@ -35,7 +41,7 @@ export class RaiderIoService {
         const name = character.key
         const lastScores = character.val().lastScores
         lastScores.push(character.val().score)
-        this.getCharacterScore(name).subscribe(
+        this.getCharacterData(name).subscribe(
           results => {
             const score = results.mythic_plus_scores_by_season[0].scores.all;
             firebase.database().ref('characters/' + name).set({
