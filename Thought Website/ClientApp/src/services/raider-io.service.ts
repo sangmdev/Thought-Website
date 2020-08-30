@@ -1,4 +1,4 @@
-
+import * as moment from 'moment';
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/internal/Observable";
@@ -35,12 +35,15 @@ export class RaiderIoService {
 
   refreshScores(){
     //Gets scores from raider.io for each character that has an entry in the db and updates their score in the db
+    const currentDate = moment().format('L')
     const ref = firebase.database().ref('characters');
     ref.once('value', function(snapshot) {
       snapshot.forEach(character => {
         const name = character.key
-        const lastScores = character.val().lastScores
-        lastScores.push(character.val().score)
+        var lastScores = character.val().lastScores
+        if(lastScores.find(score => score.date !== currentDate)){
+          lastScores.push({score:character.val().score, date: currentDate})
+        }
         this.getCharacterData(name).subscribe(
           results => {
             const score = results.mythic_plus_scores_by_season[0].scores.all;
