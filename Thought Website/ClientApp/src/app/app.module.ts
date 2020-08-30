@@ -15,6 +15,7 @@ import { LogsComponent } from './logs/logs.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { GuidesComponent } from './guides/guides.component';
 import { MPlusComponent } from './mplus/mplus.component';
+import { RosterComponent } from './roster/roster.component';
 
 import * as firebase from 'firebase';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,7 +42,8 @@ firebase.initializeApp(config);
     LogsComponent,
     ResourcesComponent,
     GuidesComponent,
-    MPlusComponent
+    MPlusComponent,
+    RosterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -55,6 +57,7 @@ firebase.initializeApp(config);
       { path: 'logs', component: LogsComponent },
       { path: 'resources', component: ResourcesComponent },
       { path: 'guides', component: GuidesComponent },
+      { path: 'roster', component: RosterComponent }
     ]),
     BrowserAnimationsModule,
     MatSnackBarModule

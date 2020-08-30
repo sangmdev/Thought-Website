@@ -1,0 +1,23 @@
+.content {
+  background: #232323;
+}
+
+.content-container{
+    margin-top: 20px;
+    width: 90vh;
+}
+
+ul{
+    position:relative;
+}
+
+  ul li::before {
+    position: absolute;
+    left: 0px;
+    content: '✓';
+    margin-top: 2px;
+  }
+li {
+  list-style: none;
+  margin-bottom: 10px;
+}

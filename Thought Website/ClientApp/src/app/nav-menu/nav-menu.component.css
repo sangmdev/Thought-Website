@@ -22,5 +22,31 @@ html {
   background: #333333;
   transition: none;
   min-height: 77px;
-  color:#232323;
+  color: #232323;
+  z-index:1;
 }
+
+.thought-logo
+{
+  height:3.8rem;
+  margin-left: 20%;
+}
+
+.thought-logo:hover{
+  border-bottom: 1px solid white;
+}
+
+.nav-icons{
+  vertical-align: middle;
+}
+
+.nav-link:hover {
+  color: #c1c1c1 !important;
+  border-bottom: 2px solid white;
+}
+
+
+.margin-right {
+  margin-right: 10%;
+}
+

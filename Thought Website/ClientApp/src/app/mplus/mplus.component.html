@@ -1,26 +1,31 @@
-<div>
-  <button (click)="fetchScores()">Refresh Scores</button>
-
-  <table mat-table>
-    <tr>
-      <th>Character Name</th>
-      <th>Current Score</th>
-    </tr>
-    <tr *ngFor="let score of allScores">
-      <th>{{score.name}}</th>
-      <th>{{score.score}}</th>
-    </tr>
-  </table>
-
+<div class="hero-image-container">
+  <img class="hero-image" src="assets/images/shadowlands-no-top.png" />
+  <h1 class="page-name">Mythic+</h1>
 </div>
-<hr />
-<div>
-  <h1>Io Score Search</h1>
-  <input type="text" [(ngModel)]="charName" />
-  <button (click)="getScoreFromDb()">Get Score from Database</button>
 
+<div class="container">
+  <div>
+    <button (click)="fetchScores()">Refresh Scores</button>
+
+    <table mat-table>
+      <tr>
+        <th>Character Name</th>
+        <th>Current Score</th>
+      </tr>
+      <tr *ngFor="let score of allScores">
+        <th>{{score.name}}</th>
+        <th>{{score.score}}</th>
+      </tr>
+    </table>
+  </div>
+  <hr />
+  <div>
+    <h1>Io Score Search</h1>
+    <input type="text" [(ngModel)]="charName" />
+    <button (click)="getScoreFromDb()">Get Score from Database</button>
   <h1 *ngIf="dbSearchCompleted">Your score is: {{dbScore}}</h1>
 
   <input type="text" [(ngModel)]="addCharName" />
   <button (click)="addCharacter()">Add Character</button>
+  </div>
 </div>

@@ -34,10 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\assets\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\interfaces\ICharacterData.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\mplus\raider-io.service.ts" />
   </ItemGroup>

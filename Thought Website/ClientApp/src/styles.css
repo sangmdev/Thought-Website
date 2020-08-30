@@ -1,6 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: Delius;
+  src: url("assets/fonts/DeliusUnicase-Regular.ttf");
+}
+@font-face {
+    font-family: SpectralBold;
+    src: url("assets/fonts/SpectralSC-ExtraBold.ttf");
+}
 
-/* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
 }
@@ -15,5 +21,40 @@ code {
   border-color: #1861ac;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  max-height: 100%;
+  background: #333333;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.height-viewpoint{
+  height: 100vh;
+}
+
+.hero-image {
+  opacity: 0.7;
+}
+
+.hero-image-container {
+  height: 300px;
+  display: flex; /* establish flex container */
+  flex-direction: column; /* stack flex items vertically */
+  position: relative;
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+}
+
+.page-name {
+  position: absolute;
+  left: 50%; /* horizontal alignment */
+  top: 50%; /* vertical alignment */
+  transform: translate(-50%, -50%);
+  color: black;
+  font-size: 4rem;
+  font-family: SpectralBold, serif;
+}
