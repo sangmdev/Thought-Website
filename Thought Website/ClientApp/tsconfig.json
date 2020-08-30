@@ -10,12 +10,14 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es2015",
+    "allowSyntheticDefaultImports": true,
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "node"
     ],
     "lib": [
       "es2017",
       "dom"
     ]
-  }
+  },
 }
