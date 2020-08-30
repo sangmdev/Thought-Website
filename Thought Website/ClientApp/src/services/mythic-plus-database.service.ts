@@ -1,6 +1,6 @@
-
+import * as moment from 'moment';
 import { Injectable } from "@angular/core";
-import {RaiderIoService} from './raider-io.service'
+import {RaiderIoService} from './raider-io.service';
 import * as firebase from 'firebase/app';
 
 @Injectable({
@@ -14,7 +14,8 @@ export class MythicPlusDatabase{
   }
 
   //gets a score for the selected char from the db
-  async getSavedScore(charName){
+  async getSavedScore(cn){
+    const charName = cn.toLowerCase()
     let score
     const ref = firebase.database().ref('characters/' + charName);
     await ref.on('value', function(snapshot) {
@@ -28,14 +29,18 @@ export class MythicPlusDatabase{
     const ref = firebase.database().ref('characters')
     await ref.on('value', function (snapshot) {
       snapshot.forEach(character => {
-        allScores.push({ name: character.key, score: character.val().score })
+        const found = allScores.find(score => score.name == character.key) ? true : false
+        if(!found){
+          allScores.push({ name: character.key, score: character.val().score })
+        }
       })
     });
     return allScores
   }
 
-  async addCharacter(charName){
+  async addCharacter(cn){
     try{
+      const charName = cn.toLowerCase()
       const data = await this.raiderIoService.getCharacterGuildData(charName)
       const score = data.mythic_plus_scores_by_season[0].scores.all
       const entries = await this.getAllSavedScores()
@@ -51,7 +56,7 @@ export class MythicPlusDatabase{
         throw new Error('Character is already tracked')
       }else{
         firebase.database().ref('characters/' + charName).set({
-          lastScores: [score],
+          lastScores: [{score, date: moment().format('L')}],
           score,
         });
       }
