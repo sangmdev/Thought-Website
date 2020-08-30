@@ -51,9 +51,9 @@ export class MythicPlusDatabase{
       })
 
       if(data.guild.name !== 'Thought' || data.guild.realm !== 'Sargeras'){
-        throw new Error('Character not in Thought')
+        throw new Error('Sorry, this character is not in Thought.')
       }else if(characterTracked){
-        throw new Error('Character is already tracked')
+        throw new Error('Sorry, this character is already being tracked.')
       }else{
         firebase.database().ref('characters/' + charName).set({
           lastScores: [{score, date: moment().format('L')}],
@@ -62,7 +62,10 @@ export class MythicPlusDatabase{
       }
       return data
     } catch(e){
-      console.log(`The error is: ${e.message}`)
+      if(e.status === 400){
+        throw new Error(`Character ${cn}-Sargeras not found.`)
+      }
+      throw e
     }
   }
 }

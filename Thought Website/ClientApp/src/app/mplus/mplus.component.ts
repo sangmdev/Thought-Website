@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RaiderIoService } from '../../services/raider-io.service';
 import { MythicPlusDatabase } from '../../services/mythic-plus-database.service'
 import { ICharacterData } from '../interfaces/ICharacterData';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import * as firebase from 'firebase';
 
 @Component({
@@ -17,7 +18,7 @@ export class MPlusComponent implements OnInit {
   dbSearchCompleted = false;
   addCharName: string;
 
-  constructor(private readonly raiderIoService: RaiderIoService, readonly MPlusService: MythicPlusDatabase) {
+  constructor(private readonly raiderIoService: RaiderIoService, readonly MPlusService: MythicPlusDatabase, private _snackBar: MatSnackBar) {
 
   }
 
@@ -35,8 +36,17 @@ export class MPlusComponent implements OnInit {
   }
 
   async addCharacter(){
-    await this.MPlusService.addCharacter(this.addCharName)
+    await this.MPlusService.addCharacter(this.addCharName).catch(err => {
+      this.openSnackBar(err.message, 'Dismiss')
+    })
   }
+
+  openSnackBar(message: string, action: string) {
+  this._snackBar.open(message, action, {
+    duration: 2000,
+    panelClass: ['mat-toolbar', 'mat-warn']
+  });
+}
 
   ngOnInit() {
     this.getAllScoresFromDb()
