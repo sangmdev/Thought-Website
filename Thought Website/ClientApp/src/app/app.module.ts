@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -19,14 +21,14 @@ import * as firebase from 'firebase';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const config = {
-  apiKey: "AIzaSyDKUEw0VxLIDEZ0ZY_ewh-l38awbv_GRBw",
-  authDomain: "thought-mplus-rankings.firebaseapp.com",
-  databaseURL: "https://thought-mplus-rankings.firebaseio.com",
-  projectId: "thought-mplus-rankings",
-  storageBucket: "thought-mplus-rankings.appspot.com",
-  messagingSenderId: "313665645180",
-  appId: "1:313665645180:web:9d6645b179092710c1f7f9",
-  measurementId: "G-9Z6FZS6FLY"
+  apiKey: "AIzaSyDBcA2NdaZ-s-tVi0zyQi1YPjW4T0IP83c",
+  authDomain: "thought-website.firebaseapp.com",
+  databaseURL: "https://thought-website.firebaseio.com",
+  projectId: "thought-website",
+  storageBucket: "thought-website.appspot.com",
+  messagingSenderId: "612934409899",
+  appId: "1:612934409899:web:6d04470f778d0a97c461ee",
+  measurementId: "G-VNF1HPKTJW"
 };
 firebase.initializeApp(config);
 
@@ -56,7 +58,9 @@ firebase.initializeApp(config);
       { path: 'resources', component: ResourcesComponent },
       { path: 'guides', component: GuidesComponent },
       { path: 'roster', component: RosterComponent }
-    ])
+    ]),
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

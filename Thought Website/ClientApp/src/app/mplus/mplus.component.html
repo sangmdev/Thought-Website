@@ -23,7 +23,9 @@
     <h1>Io Score Search</h1>
     <input type="text" [(ngModel)]="charName" />
     <button (click)="getScoreFromDb()">Get Score from Database</button>
+  <h1 *ngIf="dbSearchCompleted">Your score is: {{dbScore}}</h1>
 
-    <h1 *ngIf="dbSearchCompleted">Your score is: {{dbScore}}</h1>
+  <input type="text" [(ngModel)]="addCharName" />
+  <button (click)="addCharacter()">Add Character</button>
   </div>
 </div>

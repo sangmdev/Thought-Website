@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RaiderIoService } from './raider-io.service';
+import { RaiderIoService } from '../../services/raider-io.service';
+import { MythicPlusDatabase } from '../../services/mythic-plus-database.service'
 import { ICharacterData } from '../interfaces/ICharacterData';
-import * as firebase from 'firebase/app';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-home',
@@ -14,62 +16,39 @@ export class MPlusComponent implements OnInit {
   dbScore: number;
   allScores: ICharacterData[];
   dbSearchCompleted = false;
+  addCharName: string;
 
-  constructor(private readonly raiderIoService: RaiderIoService) {
+  constructor(private readonly raiderIoService: RaiderIoService, readonly MPlusService: MythicPlusDatabase, private _snackBar: MatSnackBar) {
 
   }
 
-  //gets a score for the selected char from raider io
-  getScore() {
-    this.raiderIoService.getCharacterScore(this.charName).subscribe(
-      results => {
-        this.ioScore = results.mythic_plus_scores_by_season[0].scores.all;
-      });
+  async getScoreFromDb() {
+    this.dbScore = await this.MPlusService.getSavedScore(this.charName)
+    this.dbSearchCompleted = true
   }
 
-  //gets a score for the selected char from the db
-  getScoreFromDb() {
-    this.dbScore = null;
-    const ref = firebase.database().ref('characters/' + this.charName);
-    ref.once('value', function (snapshot) {
-      this.dbScore = snapshot.val().score;
-    }.bind(this));
-    this.dbSearchCompleted = true;
-  }
-
-  getAllScoresFromDb() {
-    const allScores = [];
-    const ref = firebase.database().ref('characters');
-    ref.once('value', function (snapshot) {
-      snapshot.forEach(character => {
-        allScores.push({ name: character.key, score: character.val().score })
-      })
-    });
-    this.allScores = allScores
+  async getAllScoresFromDb() {
+    this.allScores = await this.MPlusService.getAllSavedScores()
   }
 
   fetchScores() {
-    //Gets scores from raider.io for each character that has an entry in the db and updates their score in the db
-    const ref = firebase.database().ref('characters');
-    ref.once('value', function (snapshot) {
-      snapshot.forEach(character => {
-        const name = character.key
-        const lastScores = character.val().lastScores
-        lastScores.push(character.val().score)
-        this.raiderIoService.getCharacterScore(name).subscribe(
-          results => {
-            const score = results.mythic_plus_scores_by_season[0].scores.all;
-            firebase.database().ref('characters/' + name).set({
-              score,
-              lastScores
-            });
-          });
-      });
-    }.bind(this));
+    this.raiderIoService.refreshScores()
   }
+
+  async addCharacter(){
+    await this.MPlusService.addCharacter(this.addCharName).catch(err => {
+      this.openSnackBar(err.message, 'Dismiss')
+    })
+  }
+
+  openSnackBar(message: string, action: string) {
+  this._snackBar.open(message, action, {
+    duration: 2000,
+    panelClass: ['mat-toolbar', 'mat-warn']
+  });
+}
 
   ngOnInit() {
     this.getAllScoresFromDb()
   }
-
 }
