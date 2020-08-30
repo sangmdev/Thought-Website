@@ -1,13 +1,23 @@
 .content {
   background: #232323;
-  padding-top: 60px;
-  padding-bottom: 60px;
 }
 
-p{
-    color:white;
+.content-container{
+    margin-top: 20px;
+    width: 90vh;
 }
 
-.title{
-    font-family: Delius, sans-serif;
+ul{
+    position:relative;
+}
+
+  ul li::before {
+    position: absolute;
+    left: 0px;
+    content: '✓';
+    margin-top: 2px;
+  }
+li {
+  list-style: none;
+  margin-bottom: 10px;
 }

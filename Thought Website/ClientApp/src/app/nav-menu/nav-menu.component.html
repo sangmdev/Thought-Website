@@ -1,5 +1,5 @@
 <header>
-  <nav id="nav-bar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+  <nav id="nav-bar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark">
     <div class="container-fluid">
       <a class="navbar-brand" [routerLink]="['/']"><img class="thought-logo" src="assets/images/thought-logo.png" alt="thought logo" /></a>
       <button
@@ -15,12 +15,15 @@
       <div
         class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
         [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
+        <ul class="navbar-nav flex-grow margin-right">
           <li class="nav-item"
               [routerLinkActive]="['link-active']"
               [routerLinkActiveOptions]="{ exact: true }">
-            
+
             <a class="nav-link text-white" [routerLink]="['/philosophy']"><span class="nav-icons material-icons">wb_sunny</span> Philosophy</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-white" [routerLink]="['/roster']"><span class="nav-icons material-icons">emoji_people</span> Roster</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-white" [routerLink]="['/mplus']"><span class="nav-icons material-icons">signal_cellular_alt</span> Mythic+</a>
@@ -31,9 +34,7 @@
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-white" [routerLink]="['/resources']"><span class="nav-icons material-icons">menu_book</span> Resources</a>
           </li>
-          <!--<li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-white" [routerLink]="['/guides']">Guides</a>
-          </li>-->
+
         </ul>
       </div>
     </div>

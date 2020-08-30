@@ -29,6 +29,11 @@ html {
 .thought-logo
 {
   height:3.8rem;
+  margin-left: 20%;
+}
+
+.thought-logo:hover{
+  border-bottom: 1px solid white;
 }
 
 .nav-icons{
@@ -37,5 +42,11 @@ html {
 
 .nav-link:hover {
   color: #c1c1c1 !important;
+  border-bottom: 2px solid white;
+}
+
+
+.margin-right {
+  margin-right: 10%;
 }
 
