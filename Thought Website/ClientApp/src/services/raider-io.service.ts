@@ -41,7 +41,7 @@ export class RaiderIoService {
       snapshot.forEach(character => {
         const name = character.key
         var lastScores = character.val().lastScores
-        if(lastScores.find(score => score.date !== currentDate)){
+        if(!lastScores.find(score => score.date === currentDate)){
           lastScores.push({score:character.val().score, date: currentDate})
         }
         this.getCharacterData(name).subscribe(

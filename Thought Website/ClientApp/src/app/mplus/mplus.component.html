@@ -6,17 +6,24 @@
 <div class="container">
   <div>
     <button (click)="fetchScores()">Refresh Scores</button>
+    <table score-table mat-table *ngIf="allScores && allScores.length > 0" [dataSource]="allScores">
+      <ng-container matColumnDef="rank">
+          <th mat-header-cell *matHeaderCellDef> Rank </th>
+          <td mat-cell *matCellDef="let score"> {{score.rank}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let score"> {{score.name | titlecase}} </td>
+        </ng-container>
+        <ng-container matColumnDef="score">
+          <th mat-header-cell *matHeaderCellDef> Score </th>
+          <td mat-cell *matCellDef="let score"> {{score.score}} </td>
+        </ng-container>
 
-    <table mat-table>
-      <tr>
-        <th>Character Name</th>
-        <th>Current Score</th>
-      </tr>
-      <tr *ngFor="let score of allScores">
-        <th>{{score.name}}</th>
-        <th>{{score.score}}</th>
-      </tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+
   </div>
   <hr />
   <div>
