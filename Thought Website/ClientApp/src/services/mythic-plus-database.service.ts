@@ -38,7 +38,6 @@ export class MythicPlusDatabase{
         index += 1
       })
     });
-    console.log(allScores)
     return allScores
   }
 

@@ -3,7 +3,6 @@ import { RaiderIoService } from '../../services/raider-io.service';
 import { MythicPlusDatabase } from '../../services/mythic-plus-database.service'
 import { ICharacterData } from '../interfaces/ICharacterData';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import * as _ from 'lodash'
 import * as firebase from 'firebase';
 
 @Component({
@@ -18,7 +17,6 @@ export class MPlusComponent implements OnInit {
   charName: string;
   dbScore: number;
   allScores: ICharacterData[];
-  sortedScores: ICharacterData[];
   dbSearchCompleted = false;
   addCharName: string;
   displayedColumns: string[] = ['rank', 'name', 'score'];
