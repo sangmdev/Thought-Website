@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 import { Injectable } from "@angular/core";
-import {RaiderIoService} from './raider-io.service';
+import { RaiderIoService } from './raider-io.service';
 import * as firebase from 'firebase/app';
 
 @Injectable({

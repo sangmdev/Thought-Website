@@ -3,7 +3,6 @@ import { RaiderIoService } from '../../services/raider-io.service';
 import { MythicPlusDatabase } from '../../services/mythic-plus-database.service'
 import { ICharacterData } from '../interfaces/ICharacterData';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-home',
