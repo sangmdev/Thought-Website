@@ -61,4 +61,16 @@ body {
 
 .margin-top{
     margin-top: 2%;
+=======
+.success-snackbar {
+  background: #2e7d32;
+}
+.error-snackbar{
+  background-color: #c62828;
+}
+.error-snackbar button{
+  color: white;
+}
+.success-snackbar button{
+  color: white;
 }

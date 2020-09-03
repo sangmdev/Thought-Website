@@ -26,13 +26,16 @@ export class MythicPlusDatabase{
 
   async getAllSavedScores(){
     const allScores = []
-    const ref = firebase.database().ref('characters')
+    const ref = firebase.database().ref('characters').orderByChild('score')
     await ref.on('value', function (snapshot) {
+      let index = 0
       snapshot.forEach(character => {
         const found = allScores.find(score => score.name == character.key) ? true : false
         if(!found){
-          allScores.push({ name: character.key, score: character.val().score })
+          const rank = snapshot.numChildren() - index
+          allScores.unshift({ rank, name: character.key, score: character.val().score })
         }
+        index += 1
       })
     });
     return allScores

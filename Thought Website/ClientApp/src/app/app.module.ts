@@ -8,6 +8,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -19,8 +22,6 @@ import { ResourcesComponent } from './resources/resources.component';
 import { GuidesComponent } from './guides/guides.component';
 import { MPlusComponent } from './mplus/mplus.component';
 import { RosterComponent } from './roster/roster.component';
-import { MatInputModule } from '@angular/material/input';
-import { MatTableModule } from '@angular/material/table';
 
 import * as firebase from 'firebase';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -74,6 +75,8 @@ firebase.initializeApp(config);
     MatNativeDateModule,
     MatTableModule,
     MatSelectModule,
+    MatPaginatorModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

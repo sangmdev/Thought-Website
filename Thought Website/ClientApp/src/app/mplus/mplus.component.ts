@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-home',
   templateUrl: './mplus.component.html',
+  styleUrls: ['./mplus.component.css']
+
 })
 export class MPlusComponent implements OnInit {
 
@@ -16,6 +18,7 @@ export class MPlusComponent implements OnInit {
   allScores: ICharacterData[];
   dbSearchCompleted = false;
   addCharName: string;
+  displayedColumns: string[] = ['rank', 'name', 'score'];
 
   constructor(private readonly raiderIoService: RaiderIoService, readonly MPlusService: MythicPlusDatabase, private _snackBar: MatSnackBar) {
 
@@ -35,17 +38,31 @@ export class MPlusComponent implements OnInit {
   }
 
   async addCharacter(){
-    await this.MPlusService.addCharacter(this.addCharName).catch(err => {
-      this.openSnackBar(err.message, 'Dismiss')
+    await this.MPlusService.addCharacter(this.addCharName)
+    .then(() => {
+      this.openSucessSnackBar(`Successfully added character ${this.addCharName}`, 'Dismiss')
     })
+    .catch(err => {
+      this.openErrorSnackBar(err.message, 'Dismiss')
+    })
+    this.getAllScoresFromDb()
   }
 
-  openSnackBar(message: string, action: string) {
-  this._snackBar.open(message, action, {
-    duration: 2000,
-    panelClass: ['mat-toolbar', 'mat-warn']
-  });
-}
+  openErrorSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 4000,
+      panelClass: ['error-snackbar']
+    });
+  }
+
+  openSucessSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 4000,
+      panelClass: ['success-snackbar']
+    });
+  }
+
+
 
   ngOnInit() {
     this.getAllScoresFromDb()
