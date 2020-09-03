@@ -1,0 +1,29 @@
+table {
+  width: 100%;
+}
+
+.mat-column-rank {
+  width: 25%
+}
+
+.mat-column-name {
+  width: 25%
+}
+
+.mat-column-score {
+  width: 50%
+}
+
+.difficulty-text{
+  padding: 2%;
+}
+
+.heroic {
+  border: dotted blue 1px;
+  color: blue;
+}
+
+.mythic {
+  border: dotted purple 1px;
+  color: purple;
+}

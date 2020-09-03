@@ -2,7 +2,49 @@
   <img class="hero-image" src="assets/images/shadowlands-no-top.png" />
   <h1 class="title page-name">Raid Logs</h1>
 </div>
-<div class="container">
-  <div>
-  </div>
+
+<div class="container margin-top">
+  <!--<div class="text-white">
+    <mat-form-field appearance="fill">
+      <mat-label>Raid Name</mat-label>
+      <mat-select [(ngModel)]="raidName">
+        <mat-option value="nyalotha">Nyalotha</mat-option>
+        <mat-option value="uldir">Uldir</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Difficulty</mat-label>
+      <mat-select [(ngModel)]="difficulty">
+        <mat-option value="heroic">Heroic</mat-option>
+        <mat-option value="mythic">Mythic</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label class="text-white">Please select a date</mat-label>
+      <input class="text-white" matInput [matDatepicker]="dp3" [(ngModel)]="logDate" disabled>
+      <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+      <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <label for="log-url">Log URL</label>
+    <input type="text" [(ngModel)]="logUrl" id="log-url" name="log-url" />
+    <button (click)="addLog()">Add Log</button>
+  </div>-->
+  <table mat-table *ngIf="allLogs && allLogs.length > 0" [dataSource]="allLogs">
+    <ng-container matColumnDef="raidName">
+      <th mat-header-cell *matHeaderCellDef> Raid Name </th>
+      <td mat-cell *matCellDef="let log"><span class="difficulty-text heroic" *ngIf="log.difficulty == 'heroic' else mythicBlock">H</span> {{log.raidName | titlecase}} </td>
+      <ng-template #mythicBlock><span class="difficulty-text mythic">M</span></ng-template>
+    </ng-container>
+    <ng-container matColumnDef="logDate">
+      <th mat-header-cell *matHeaderCellDef> Log Date</th>
+      <td mat-cell *matCellDef="let log"> {{log.logDate | formatDate}} </td>
+    </ng-container>
+    <ng-container matColumnDef="logUrl">
+      <th mat-header-cell *matHeaderCellDef> Log URL </th>
+      <td mat-cell *matCellDef="let log"> <a href="{{log.logUrl}}">{{log.logUrl}}</a> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>
