@@ -58,16 +58,3 @@ body {
   font-size: 4rem;
   font-family: SpectralBold, serif;
 }
-.success-snackbar {
-  background: #512da8 !important;
-}
-.error-snackbar{
-  background-color: #c62828 !important;
-  color: white;
-}
-.error-snackbar .mat-simple-snackbar-action{
-  color: white;
-}
-.success-snackbar button{
-  color: white;
-}
