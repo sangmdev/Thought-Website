@@ -4,8 +4,16 @@
 </div>
 
 <div class="container">
+  <div class='mt-2'>
+    <mat-form-field appearance="outline">
+      <mat-label>Character Name</mat-label>
+      <input matInput type="text" [(ngModel)]="charName" />
+    </mat-form-field>
+    <button class='ml-3' mat-raised-button color="primary" (click)="getScoreFromDb()">Get Score from Database</button>
+    <h1 *ngIf="dbSearchCompleted">Your score is: {{dbScore}}</h1>
+  </div>
+
   <div>
-    <button (click)="fetchScores()">Refresh Scores</button>
     <table score-table mat-table *ngIf="allScores && allScores.length > 0" [dataSource]="allScores">
       <ng-container matColumnDef="rank">
           <th mat-header-cell *matHeaderCellDef> Rank </th>
@@ -25,14 +33,14 @@
     </table>
 
   </div>
-  <hr />
-  <div>
-    <h1>Io Score Search</h1>
-    <input type="text" [(ngModel)]="charName" />
-    <button (click)="getScoreFromDb()">Get Score from Database</button>
-  <h1 *ngIf="dbSearchCompleted">Your score is: {{dbScore}}</h1>
-
-  <input type="text" [(ngModel)]="addCharName" />
-  <button (click)="addCharacter()">Add Character</button>
+  <div class='mb-2'>
+    <mat-form-field appearance="outline">
+      <mat-label>Character Name</mat-label>
+      <input matInput type="text" [(ngModel)]="addCharName" />
+    </mat-form-field>
+    <button class='ml-3' mat-raised-button color="primary" (click)="addCharacter()">Add Character</button>
   </div>
+
+  <hr />
+
 </div>
