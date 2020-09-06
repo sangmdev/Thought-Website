@@ -2,13 +2,13 @@
   background: #232323;
 }
 
-.content-container{
-    margin-top: 20px;
-    width: 90vh;
-}
-
 ul{
     position:relative;
+}
+
+.content-container {
+  margin-top: 20px;
+  width: 90vh;
 }
 
   ul li::before {

@@ -4,9 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -21,6 +25,7 @@ import { RosterComponent } from './roster/roster.component';
 
 import * as firebase from 'firebase';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormatDatePipe } from './pipes/format-date.pipe';
 
 const config = {
   apiKey: "AIzaSyDBcA2NdaZ-s-tVi0zyQi1YPjW4T0IP83c",
@@ -45,7 +50,8 @@ firebase.initializeApp(config);
     ResourcesComponent,
     GuidesComponent,
     MPlusComponent,
-    RosterComponent
+    RosterComponent,
+    FormatDatePipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -63,8 +69,14 @@ firebase.initializeApp(config);
     ]),
     BrowserAnimationsModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
     MatTableModule,
-    MatPaginatorModule
+    MatSelectModule,
+    MatPaginatorModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

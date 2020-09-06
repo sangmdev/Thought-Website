@@ -21,6 +21,11 @@ code {
   border-color: #1861ac;
 }
 
+html {
+  overflow-x: hidden;
+  margin-right: calc(-1 * (100vw - 100%));
+}
+
 html, body {
   max-height: 100%;
   background: #333333;
@@ -57,4 +62,7 @@ body {
   color: black;
   font-size: 4rem;
   font-family: SpectralBold, serif;
+}
+.margin-top {
+  margin-top: 2%;
 }
