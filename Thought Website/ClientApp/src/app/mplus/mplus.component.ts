@@ -52,14 +52,14 @@ export class MPlusComponent implements OnInit {
   openErrorSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 4000,
-      panelClass: ['error-snackbar']
+      panelClass: ['mat-toolbar', 'mat-warn']
     });
   }
 
   openSucessSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 4000,
-      panelClass: ['success-snackbar']
+      panelClass: ['mat-toolbar', 'mat-primary']
     });
   }
 

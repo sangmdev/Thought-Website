@@ -59,12 +59,13 @@ body {
   font-family: SpectralBold, serif;
 }
 .success-snackbar {
-  background: #2e7d32;
+  background: #512da8 !important;
 }
 .error-snackbar{
-  background-color: #c62828;
+  background-color: #c62828 !important;
+  color: white;
 }
-.error-snackbar button{
+.error-snackbar .mat-simple-snackbar-action{
   color: white;
 }
 .success-snackbar button{
