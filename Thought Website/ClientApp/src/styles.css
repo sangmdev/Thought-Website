@@ -21,6 +21,11 @@ code {
   border-color: #1861ac;
 }
 
+html {
+  overflow-x: hidden;
+  margin-right: calc(-1 * (100vw - 100%));
+}
+
 html, body {
   max-height: 100%;
   background: #333333;
