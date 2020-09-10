@@ -2,7 +2,26 @@
   <img class="hero-image" src="assets/images/shadowlands-no-top.png" />
   <h1 class="page-name">Roster</h1>
 </div>
-<div class="container">
+<div class="container margin-top">
   <div>
+    <button (click)="getLeadershipRoster()">Get Roster</button>
+
+    <table mat-table *ngIf="leadershipRoster && leadershipRoster.length > 0" [dataSource]="leadershipRoster">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let member">{{member.character.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="class">
+        <th mat-header-cell *matHeaderCellDef> Class</th>
+        <td mat-cell *matCellDef="let member"> {{classNames[member.character.playable_class.id]}} </td>
+      </ng-container>
+      <ng-container matColumnDef="race">
+        <th mat-header-cell *matHeaderCellDef> Rank </th>
+        <td mat-cell *matCellDef="let member">{{member.rank}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   </div>
 </div>
