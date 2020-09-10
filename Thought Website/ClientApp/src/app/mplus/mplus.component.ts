@@ -18,7 +18,8 @@ export class MPlusComponent implements OnInit {
   allScores: ICharacterData[];
   dbSearchCompleted = false;
   addCharName: string;
-  displayedColumns: string[] = ['rank', 'name', 'score'];
+  displayedColumns: string[] = ['rank', 'name', 'score', 'tier'];
+  topTen: ICharacterData[];
 
   constructor(private readonly raiderIoService: RaiderIoService, readonly MPlusService: MythicPlusDatabase, private _snackBar: MatSnackBar) {
 

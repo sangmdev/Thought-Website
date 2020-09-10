@@ -26,6 +26,7 @@ export class MythicPlusDatabase{
 
   async getAllSavedScores(){
     const allScores = []
+    const tierMap = {2500: 0, 2000: 1, 1500: 2, 1000: 3, 500:4, 0: 5}
     const ref = firebase.database().ref('characters').orderByChild('score')
     await ref.on('value', function (snapshot) {
       let index = 0
@@ -33,7 +34,10 @@ export class MythicPlusDatabase{
         const found = allScores.find(score => score.name == character.key) ? true : false
         if(!found){
           const rank = snapshot.numChildren() - index
-          allScores.unshift({ rank, name: character.key, score: character.val().score })
+          const score = character.val().score
+          const roundedScore = Math.floor(score / 500) * 500
+          const tier = tierMap[roundedScore] ? tierMap[roundedScore] : 0
+          allScores.unshift({ rank, name: character.key, score, tier})
         }
         index += 1
       })
