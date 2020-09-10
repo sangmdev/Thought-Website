@@ -11,6 +11,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatGridListModule} from '@angular/material/grid-list'
+
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -75,8 +78,12 @@ firebase.initializeApp(config);
     MatNativeDateModule,
     MatTableModule,
     MatSelectModule,
-    MatPaginatorModule,
     MatInputModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
