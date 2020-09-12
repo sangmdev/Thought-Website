@@ -5,7 +5,7 @@ import { ICharacterData } from '../interfaces/ICharacterData';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-home',
+  selector: 'mplus-top-ten',
   templateUrl: './mplus.component.html',
   styleUrls: ['./mplus.component.css']
 
@@ -13,20 +13,26 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class MPlusComponent implements OnInit {
 
   ioScore: number;
-  charName: string;
-  dbScore: number;
+  searchCharName: string;
+  selectedChar: ICharacterData;
   allScores: ICharacterData[];
   dbSearchCompleted = false;
   addCharName: string;
   displayedColumns: string[] = ['rank', 'name', 'score', 'tier'];
   topTen: ICharacterData[];
+  scoresInTier: ICharacterData[];
 
   constructor(private readonly raiderIoService: RaiderIoService, readonly MPlusService: MythicPlusDatabase, private _snackBar: MatSnackBar) {
 
   }
 
   async getScoreFromDb() {
-    this.dbScore = await this.MPlusService.getSavedScore(this.charName)
+    const foundChar = this.allScores.find(score => score.name === this.searchCharName)
+    if(!foundChar){
+      this.openErrorSnackBar('Character not found', 'Dismiss')
+    } else {
+      this.getScoresInTier()
+    }
     this.dbSearchCompleted = true
   }
 
@@ -36,6 +42,14 @@ export class MPlusComponent implements OnInit {
 
   fetchScores() {
     this.raiderIoService.refreshScores()
+  }
+
+  getScoresInTier(){
+    this.selectedChar = this.allScores.find(score => score.name === this.searchCharName)
+    this.scoresInTier = this.allScores.filter(score => {
+      return score.tier === this.selectedChar.tier
+    })
+    console.log(this.scoresInTier)
   }
 
   async addCharacter(){
