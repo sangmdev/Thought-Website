@@ -49,7 +49,6 @@ export class MPlusComponent implements OnInit {
     this.scoresInTier = this.allScores.filter(score => {
       return score.tier === this.selectedChar.tier
     })
-    console.log(this.scoresInTier)
   }
 
   async addCharacter(){
