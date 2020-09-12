@@ -1,7 +1,8 @@
 const functions = require('firebase-functions')
-
-// The Firebase Admin SDK to access Cloud Firestore.
+const moment = require('moment')
+const http = require('http')
 const admin = require('firebase-admin')
+const axios = require('axios')
 admin.initializeApp()
 
 // Take the text parameter passed to this HTTP endpoint and insert it into
@@ -52,4 +53,31 @@ exports.updateScores = functions.https.onRequest(async (req, res) => {
     const result = allScores
 
     res.json({result})
+})
+
+exports.refreshScores = functions.https.onRequest(async (req, res) => {
+  const currentDate = moment().format('L')
+  const result = []
+  const ref = admin.database().ref('characters')
+   ref.once('value',  snapshot => {
+     snapshot.forEach(character => {
+      const name = character.key
+      var lastScores = character.val().lastScores
+      if(!lastScores.find(score => score.date === currentDate)){
+        lastScores.push({score:character.val().score, date: currentDate})
+      }
+      const url = `http://raider.io/api/v1/characters/profile?region=us&realm=sargeras&name=${name}&fields=mythic_plus_scores_by_season%3Acurrent`
+      const res = axios.get(url)
+        .then(res => {
+          const score = res.data.mythic_plus_scores_by_season[0].scores.all
+          const newEntry = {score, lastScores}
+          admin.database().ref('characters/' + name).set(newEntry)
+          console.log(`Set chracters/${name} with ${JSON.stringify(newEntry)}`)
+        })
+        .catch(err => {
+          console.log(`Error updating ${name} : ${err.message}`)
+        })
+    })
+  })
+  res.status(200).send('OK')
 })
