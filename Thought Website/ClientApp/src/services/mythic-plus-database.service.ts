@@ -1,10 +1,10 @@
-import * as moment from 'moment';
+import * as moment from "moment";
 import { Injectable } from "@angular/core";
-import { RaiderIoService } from './raider-io.service';
-import * as firebase from 'firebase/app';
+import { RaiderIoService } from "./raider-io.service";
+import * as firebase from "firebase/app";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 
 export class MythicPlusDatabase{
@@ -17,8 +17,8 @@ export class MythicPlusDatabase{
   async getSavedScore(cn){
     const charName = cn.toLowerCase()
     let score
-    const ref = firebase.database().ref('characters/' + charName);
-    await ref.on('value', function(snapshot) {
+    const ref = firebase.database().ref("characters/" + charName);
+    await ref.on("value", function(snapshot) {
       score = snapshot.val().score
     })
     return score
@@ -26,8 +26,8 @@ export class MythicPlusDatabase{
 
   async getAllSavedScores(){
     const allScores = []
-    const ref = firebase.database().ref('characters').orderByChild('score')
-    await ref.on('value', function (snapshot) {
+    const ref = firebase.database().ref("characters").orderByChild("score")
+    await ref.on("value", function (snapshot) {
       let index = 0
       snapshot.forEach(character => {
         const found = allScores.find(score => score.name == character.key) ? true : false
@@ -53,13 +53,13 @@ export class MythicPlusDatabase{
         return found
       })
 
-      if(data.guild.name !== 'Thought' || data.guild.realm !== 'Sargeras'){
-        throw new Error('Sorry, this character is not in Thought.')
+      if(data.guild.name !== "Thought" || data.guild.realm !== "Sargeras"){
+        throw new Error("Sorry, this character is not in Thought.")
       }else if(characterTracked){
-        throw new Error('Sorry, this character is already being tracked.')
+        throw new Error("Sorry, this character is already being tracked.")
       }else{
-        firebase.database().ref('characters/' + charName).set({
-          lastScores: [{score, date: moment().format('L')}],
+        firebase.database().ref("characters/" + charName).set({
+          lastScores: [{score, date: moment().format("L")}],
           score,
         });
       }

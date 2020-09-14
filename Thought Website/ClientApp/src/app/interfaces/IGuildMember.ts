@@ -1,9 +1,8 @@
 export interface IGuildMember {
-  character: {
-    name: string;
-    playable_class: {
-      id: number;
-    };
-  }
-    rank: number;
+  name: string,
+  race: string,
+  class: string,
+  active_spec_name: string,
+  thumbnail_url: string,
+  profile_url: string,
 }

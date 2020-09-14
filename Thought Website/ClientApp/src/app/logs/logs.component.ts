@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { LogsDatabaseService } from '../../services/logs-database.service';
-import { ILogData } from '../interfaces/ILogData';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnInit } from "@angular/core";
+import { LogsDatabaseService } from "../../services/logs-database.service";
+import { ILogData } from "../interfaces/ILogData";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'app-logs',
-  templateUrl: './logs.component.html',
-  styleUrls: ['./logs.component.css']
+  selector: "app-logs",
+  templateUrl: "./logs.component.html",
+  styleUrls: ["./logs.component.css"]
 })
 export class LogsComponent implements OnInit {
   logDate: number;
@@ -14,7 +14,7 @@ export class LogsComponent implements OnInit {
   raidName: string;
   difficulty: string;
   allLogs: ILogData[];
-  displayedColumns: string[] = ['raidName', 'logDate', 'logUrl'];
+  displayedColumns: string[] = ["raidName", "logDate", "logUrl"];
 
   constructor(private readonly logsDatabaseService: LogsDatabaseService, private _snackBar: MatSnackBar) { }
 
@@ -25,10 +25,10 @@ export class LogsComponent implements OnInit {
   async addLog() {
     await this.logsDatabaseService.addLog(this.raidName, this.difficulty, this.convert(this.logDate), this.logUrl).
       then(() => {
-        this.openSuccessSnackBar(`Successfully added log.`, 'Dismiss');
+        this.openSuccessSnackBar(`Successfully added log.`, "Dismiss");
       })
       .catch(err => {
-        this.openErrorSnackBar(`err.message`, 'Dismiss')
+        this.openErrorSnackBar(`err.message`, "Dismiss")
       });
     this.getAllLogs();
   }
@@ -48,14 +48,14 @@ export class LogsComponent implements OnInit {
   openErrorSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 4000,
-      panelClass: ['error-snackbar']
+      panelClass: ["error-snackbar"]
     });
   }
 
   openSuccessSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 4000,
-      panelClass: ['success-snackbar']
+      panelClass: ["success-snackbar"]
     });
   }
 }

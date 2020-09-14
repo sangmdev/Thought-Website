@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { RaiderIoService } from '../../services/raider-io.service';
-import { MythicPlusDatabase } from '../../services/mythic-plus-database.service'
-import { ICharacterData } from '../interfaces/ICharacterData';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnInit } from "@angular/core";
+import { RaiderIoService } from "../../services/raider-io.service";
+import { MythicPlusDatabase } from "../../services/mythic-plus-database.service"
+import { ICharacterData } from "../interfaces/ICharacterData";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './mplus.component.html',
-  styleUrls: ['./mplus.component.css']
+  selector: "app-home",
+  templateUrl: "./mplus.component.html",
+  styleUrls: ["./mplus.component.css"]
 
 })
 export class MPlusComponent implements OnInit {
@@ -18,7 +18,7 @@ export class MPlusComponent implements OnInit {
   allScores: ICharacterData[];
   dbSearchCompleted = false;
   addCharName: string;
-  displayedColumns: string[] = ['rank', 'name', 'score'];
+  displayedColumns: string[] = ["rank", "name", "score"];
 
   constructor(private readonly raiderIoService: RaiderIoService, readonly MPlusService: MythicPlusDatabase, private _snackBar: MatSnackBar) {
 
@@ -40,10 +40,10 @@ export class MPlusComponent implements OnInit {
   async addCharacter(){
     await this.MPlusService.addCharacter(this.addCharName)
     .then(() => {
-      this.openSucessSnackBar(`Successfully added character ${this.addCharName}`, 'Dismiss')
+      this.openSucessSnackBar(`Successfully added character ${this.addCharName}`, "Dismiss")
     })
     .catch(err => {
-      this.openErrorSnackBar(err.message, 'Dismiss')
+      this.openErrorSnackBar(err.message, "Dismiss")
     })
     this.getAllScoresFromDb()
   }
@@ -51,14 +51,14 @@ export class MPlusComponent implements OnInit {
   openErrorSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 4000,
-      panelClass: ['error-snackbar']
+      panelClass: ["error-snackbar"]
     });
   }
 
   openSucessSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 4000,
-      panelClass: ['success-snackbar']
+      panelClass: ["success-snackbar"]
     });
   }
 
