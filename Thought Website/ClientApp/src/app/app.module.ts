@@ -63,13 +63,15 @@ firebase.initializeApp(config);
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: HomeComponent },
       { path: 'mplus', component: MPlusComponent },
       { path: 'about-us', component: AboutUsComponent },
       { path: 'videos', component: VideosComponent },
       { path: 'logs', component: LogsComponent },
       { path: 'guides', component: GuidesComponent },
       { path: 'roster', component: RosterComponent },
+      { path : '**', pathMatch: 'full', redirectTo: ''},
+
     ]),
     BrowserAnimationsModule,
     MatSnackBarModule,
