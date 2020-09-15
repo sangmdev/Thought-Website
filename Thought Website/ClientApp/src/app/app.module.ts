@@ -1,37 +1,39 @@
-import { BrowserModule } from '@angular/platform-browser'
-import { NgModule } from '@angular/core'
-import { FormsModule } from '@angular/forms'
-import { HttpClientModule } from '@angular/common/http'
-import { RouterModule } from '@angular/router'
-import { MatSnackBarModule } from '@angular/material/snack-bar'
-import { MatDatepickerModule } from '@angular/material/datepicker'
-import { MatNativeDateModule } from '@angular/material/core'
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatSelectModule } from '@angular/material/select'
-import { MatTableModule } from '@angular/material/table'
-import { MatPaginatorModule } from '@angular/material/paginator'
-import { MatInputModule } from '@angular/material/input'
-import {MatButtonModule} from '@angular/material/button'
-import {MatGridListModule} from '@angular/material/grid-list'
-import {MatTabsModule} from '@angular/material/tabs'
-import {MatIconModule} from '@angular/material/icon'
-import {MatTooltipModule} from '@angular/material/tooltip'
-import {MatDividerModule} from '@angular/material/divider'
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { RouterModule } from "@angular/router";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { MatTableModule } from "@angular/material/table";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatInputModule } from "@angular/material/input";
+import { MatCardModule } from "@angular/material/card";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDividerModule } from "@angular/material/divider";
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatIconModule } from "@angular/material/icon";
 
+import { AppComponent } from "./app.component";
+import { NavMenuComponent } from "./nav-menu/nav-menu.component";
+import { HomeComponent } from "./home/home.component";
+import { AboutUsComponent } from "./about-us/about-us.component";
+import { VideosComponent } from "./videos/videos.component";
+import { LogsComponent } from "./logs/logs.component";
+import { ResourcesComponent } from "./resources/resources.component";
+import { GuidesComponent } from "./guides/guides.component";
+import { MPlusComponent } from "./mplus/mplus.component";
+import { RosterComponent } from "./roster/roster.component";
 
-import { AppComponent } from './app.component'
-import { NavMenuComponent } from './nav-menu/nav-menu.component'
-import { HomeComponent } from './home/home.component'
-import { AboutUsComponent } from './about-us/about-us.component'
-import { VideosComponent } from './videos/videos.component'
-import { LogsComponent } from './logs/logs.component'
-import { GuidesComponent } from './guides/guides.component'
-import { MPlusComponent } from './mplus/mplus.component'
-import { RosterComponent } from './roster/roster.component'
-
-import * as firebase from 'firebase'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { FormatDatePipe } from './pipes/format-date.pipe'
+import * as firebase from "firebase";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { FormatDatePipe } from "./pipes/format-date.pipe";
 
 const config = {
   apiKey: "AIzaSyDBcA2NdaZ-s-tVi0zyQi1YPjW4T0IP83c",
@@ -59,7 +61,7 @@ firebase.initializeApp(config);
     FormatDatePipe
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
@@ -81,7 +83,6 @@ firebase.initializeApp(config);
     MatNativeDateModule,
     MatTableModule,
     MatSelectModule,
-    MatInputModule,
     MatPaginatorModule,
     MatButtonModule,
     MatInputModule,
@@ -90,7 +91,11 @@ firebase.initializeApp(config);
     MatTabsModule,
     MatIconModule,
     MatTooltipModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCardModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

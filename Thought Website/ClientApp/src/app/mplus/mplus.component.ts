@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { RaiderIoService } from '../../services/raider-io.service';
-import { MythicPlusDatabase } from '../../services/mythic-plus-database.service'
-import { ICharacterData } from '../interfaces/ICharacterData';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnInit } from "@angular/core";
+import { RaiderIoService } from "../../services/raider-io.service";
+import { MythicPlusDatabase } from "../../services/mythic-plus-database.service"
+import { ICharacterData } from "../interfaces/ICharacterData";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'mplus-top-ten',
-  templateUrl: './mplus.component.html',
-  styleUrls: ['./mplus.component.css']
+  selector: "app-home",
+  templateUrl: "./mplus.component.html",
+  styleUrls: ["./mplus.component.css"]
 
 })
 export class MPlusComponent implements OnInit {

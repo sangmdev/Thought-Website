@@ -1,10 +1,10 @@
-import * as moment from 'moment';
+import * as moment from "moment";
 import { Injectable } from "@angular/core";
-import { RaiderIoService } from './raider-io.service';
-import * as firebase from 'firebase/app';
+import { RaiderIoService } from "./raider-io.service";
+import * as firebase from "firebase/app";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 
 export class MythicPlusDatabase{

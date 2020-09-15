@@ -30,8 +30,12 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\interfaces\ICharacterData.ts" />
+    <None Remove="ClientApp\src\app\interfaces\IGuild.ts" />
+    <None Remove="ClientApp\src\app\interfaces\IGuildMember.ts" />
     <None Remove="ClientApp\src\app\interfaces\ILogData.ts" />
     <None Remove="ClientApp\src\app\mplus\raider-io.service.ts" />
+    <None Remove="ClientApp\src\app\_helpers\auth.interceptor.ts" />
+    <None Remove="ClientApp\src\app\_helpers\class-id-enum.ts" />
   </ItemGroup>
 
   <ItemGroup>
