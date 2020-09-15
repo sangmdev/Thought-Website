@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 
 /*
  Takes a string from database in format MMDDYYYY
@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 */
 @Pipe({
-  name: 'formatDate'
+  name: "formatDate"
 })
 export class FormatDatePipe implements PipeTransform {
 

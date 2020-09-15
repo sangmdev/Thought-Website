@@ -1,19 +1,24 @@
-import * as moment from 'moment';
+import * as moment from "moment";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/internal/Observable";
-import { ICharacterGuildData } from '../app/interfaces/ICharacterGuildData';
-import { IRaiderIoCharacterGuildData } from '../app/interfaces/IRaiderIoCharacterGuildData';
+import { ICharacterGuildData } from "../app/interfaces/ICharacterGuildData";
+import { IRaiderIoCharacterGuildData } from "../app/interfaces/IRaiderIoCharacterGuildData";
 
 
-import * as firebase from 'firebase/app';
+import * as firebase from "firebase/app";
+import { IGuildMember } from "../app/interfaces/IGuildMember";
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class RaiderIoService {
   constructor(private readonly http: HttpClient) { }
+
+  getCharacterInformation(charName): Observable<IGuildMember> {
+    return this.http.get<IGuildMember>(`https://raider.io/api/v1/characters/profile?region=us&realm=sargeras&name=${charName}`);
+  }
 
   getCharacterData(charName): Observable<any> {
     return this.http.get(`https://raider.io/api/v1/characters/profile?region=us&realm=sargeras&name=${charName}&fields=mythic_plus_scores_by_season%3Acurrent`);
@@ -35,9 +40,9 @@ export class RaiderIoService {
 
   refreshScores(){
     //Gets scores from raider.io for each character that has an entry in the db and updates their score in the db
-    const currentDate = moment().format('L')
-    const ref = firebase.database().ref('characters');
-    ref.once('value', function(snapshot) {
+    const currentDate = moment().format("L")
+    const ref = firebase.database().ref("characters");
+    ref.once("value", function(snapshot) {
       snapshot.forEach(character => {
         const name = character.key
         var lastScores = character.val().lastScores
@@ -47,7 +52,7 @@ export class RaiderIoService {
         this.getCharacterData(name).subscribe(
           results => {
             const score = results.mythic_plus_scores_by_season[0].scores.all;
-            firebase.database().ref('characters/' + name).set({
+            firebase.database().ref("characters/" + name).set({
               score,
               lastScores
             });

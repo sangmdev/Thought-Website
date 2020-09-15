@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-guides',
-  templateUrl: './guides.component.html',
-  styleUrls: ['./guides.component.css']
+  selector: "app-guides",
+  templateUrl: "./guides.component.html",
+  styleUrls: ["./guides.component.css"]
 })
 export class GuidesComponent implements OnInit {
 

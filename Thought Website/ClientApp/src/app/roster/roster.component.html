@@ -2,7 +2,77 @@
   <img class="hero-image" src="assets/images/shadowlands-no-top.png" />
   <h1 class="page-name">Roster</h1>
 </div>
-<div class="container">
-  <div>
-  </div>
-</div>
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Leadership">
+    <div class="container margin-top">
+      <div style="text-align: center"><h2 class="text-white"> Guild Masters</h2></div>
+      <div class="content" fxLayout="row wrap" fxLayoutAlign="space-evenly" fxLayoutGap="16px grid" *ngIf="guildMasterRoster && guildMasterRoster.length> 0">
+        <div fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let member of guildMasterRoster">
+          <mat-card class="mat-elevation-z4">
+            <mat-card-header>
+              <mat-card-title>{{member.name}}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image class="thumbnail" src="{{member.thumbnail_url}}">
+            <mat-card-content>
+              <p>
+                {{member.race}} {{member.active_spec_name}} {{member.class}}
+              </p>
+            </mat-card-content>
+            <mat-divider [inset]="true"></mat-divider>
+            <mat-card-actions>
+              <a mat-raised-button color="primary" href="https://worldofwarcraft.com/en-us/character/us/sargeras/{{member.name}}" target="_blank">Armory</a>
+              <a mat-raised-button color="primary" href="https://raider.io/characters/us/sargeras/{{member.name}}" target="_blank">RaiderIo</a>
+              <a mat-raised-button color="primary">Twitch</a>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+      <div style="text-align: center"><h2 class="text-white"> Officers</h2></div>
+      <div class="content" fxLayout="row wrap" fxLayoutAlign="space-evenly" fxLayoutGap="16px grid" *ngIf="officerRoster && officerRoster.length> 0">
+        <div fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let member of officerRoster">
+          <mat-card class="mat-elevation-z4">
+            <mat-card-header>
+              <mat-card-title>{{member.name}}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image class="thumbnail" src="{{member.thumbnail_url}}">
+            <mat-card-content>
+              <p>
+                {{member.race}} {{member.active_spec_name}} {{member.class}}
+              </p>
+            </mat-card-content>
+            <mat-divider [inset]="true"></mat-divider>
+            <mat-card-actions>
+              <a mat-raised-button color="primary" href="https://worldofwarcraft.com/en-us/character/us/sargeras/{{member.name}}" target="_blank">Armory</a>
+              <a mat-raised-button color="primary" href="https://raider.io/characters/us/sargeras/{{member.name}}" target="_blank">RaiderIo</a>
+              <a mat-raised-button color="primary">Twitch</a>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Mythic Core">
+    <div class="content" fxLayout="row wrap" fxLayoutAlign="space-evenly" fxLayoutGap="16px grid" *ngIf="mythicCoreRoster && mythicCoreRoster.length> 0">
+      <div fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let member of mythicCoreRoster">
+        <mat-card class="mat-elevation-z4">
+          <mat-card-header>
+            <mat-card-title>{{member.name}}</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image class="thumbnail" src="{{member.thumbnail_url}}">
+          <mat-card-content>
+            <p>
+              {{member.race}} {{member.active_spec_name}} {{member.class}}
+            </p>
+          </mat-card-content>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-card-actions>
+            <a mat-raised-button color="primary" href="https://worldofwarcraft.com/en-us/character/us/sargeras/{{member.name}}" target="_blank">Armory</a>
+            <a mat-raised-button color="primary" href="https://raider.io/characters/us/sargeras/{{member.name}}" target="_blank">RaiderIo</a>
+            <a mat-raised-button color="primary">Twitch</a>
+          </mat-card-actions>
+        </mat-card>
+        </div>
+      </div>
+  </mat-tab>
+</mat-tab-group>

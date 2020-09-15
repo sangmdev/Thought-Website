@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-philosophy',
-  templateUrl: './philosophy.component.html',
-  styleUrls: ['./philosophy.component.css']
+  selector: "app-philosophy",
+  templateUrl: "./philosophy.component.html",
+  styleUrls: ["./philosophy.component.css"]
 })
 export class PhilosophyComponent implements OnInit {
 
