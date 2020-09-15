@@ -1,5 +1,7 @@
+
+
 table{
-  width: 50%;
+  width: 100%;
 }
 .mat-column-rank{
   width: 10%
@@ -9,4 +11,43 @@ table{
 }
 .mat-column-score{
   width: 25%
+}
+
+table.center {
+  margin-left:auto;
+  margin-right:auto;
+}
+.mat-input-element {
+  color: white;
+}
+.mat-input-element::placeholder {
+  color: white;
+}
+.mat-display-1{
+  color: white;
+}
+.add-char-input{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tier-table{
+  width: 100%;
+}
+.mat-header-cell {
+  text-align: center !important;
+  justify-content: center;
+}
+.mat-cell {
+  text-align: center;
+  justify-content:center;
+}
+.tier-1{
+  color:yellow;
+}
+.tier-2{
+  color:gray;
+}
+.highlight{
+  background: gray;
 }

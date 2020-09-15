@@ -15,25 +15,36 @@ export class MythicPlusDatabase{
 
   //gets a score for the selected char from the db
   async getSavedScore(cn){
-    const charName = cn.toLowerCase()
-    let score
-    const ref = firebase.database().ref("characters/" + charName);
-    await ref.on("value", function(snapshot) {
-      score = snapshot.val().score
-    })
-    return score
+    try{
+      if(!cn || cn.length < 1) throw new Error('Enter a character name')
+      const charName = cn.toLowerCase()
+      let score
+      const ref = firebase.database().ref('characters/' + charName);
+      await ref.on('value', function(snapshot) {
+        if(!snapshot.val()) throw new Error('Character not tracked')
+        score = snapshot.val().score
+      })
+      return score
+    } catch(e) {
+      throw e
+    }
+
   }
 
   async getAllSavedScores(){
     const allScores = []
-    const ref = firebase.database().ref("characters").orderByChild("score")
-    await ref.on("value", function (snapshot) {
+    const tierMap = {2500: 1, 2000: 2, 1500: 3, 1000: 4, 500: 5, 0: 6}
+    const ref = firebase.database().ref('characters').orderByChild('score')
+    await ref.on('value', function (snapshot) {
       let index = 0
       snapshot.forEach(character => {
         const found = allScores.find(score => score.name == character.key) ? true : false
         if(!found){
           const rank = snapshot.numChildren() - index
-          allScores.unshift({ rank, name: character.key, score: character.val().score })
+          const score = character.val().score
+          const roundedScore = Math.floor(score / 500) * 500
+          const tier = tierMap[roundedScore] ? tierMap[roundedScore] : 1
+          allScores.unshift({ rank, name: character.key, score, tier})
         }
         index += 1
       })
@@ -53,13 +64,13 @@ export class MythicPlusDatabase{
         return found
       })
 
-      if(data.guild.name !== "Thought" || data.guild.realm !== "Sargeras"){
-        throw new Error("Sorry, this character is not in Thought.")
+      if(data.guild.name !== 'Thought' || data.guild.realm !== 'Sargeras'){
+        throw new Error('Sorry, this character is not in Thought.')
       }else if(characterTracked){
-        throw new Error("Sorry, this character is already being tracked.")
+        throw new Error('Sorry, this character is already being tracked.')
       }else{
-        firebase.database().ref("characters/" + charName).set({
-          lastScores: [{score, date: moment().format("L")}],
+        firebase.database().ref('characters/' + charName).set({
+          lastScores: [{score, date: moment().format('L')}],
           score,
         });
       }

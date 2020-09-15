@@ -81,12 +81,17 @@ firebase.initializeApp(config);
     MatTableModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatButtonModule,
     MatInputModule,
+    MatFormFieldModule,
+    MatGridListModule,
+    MatTabsModule,
+    MatIconModule,
+    MatTooltipModule
     MatCardModule,
     FlexLayoutModule,
     MatButtonModule,
     MatDividerModule,
-    MatTabsModule
   ],
   providers: [
   ],
