@@ -23,7 +23,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 import { HomeComponent } from "./home/home.component";
-import { PhilosophyComponent } from "./philosophy/philosophy.component";
+import { AboutUsComponent } from "./about-us/about-us.component";
 import { VideosComponent } from "./videos/videos.component";
 import { LogsComponent } from "./logs/logs.component";
 import { ResourcesComponent } from "./resources/resources.component";
@@ -52,10 +52,9 @@ firebase.initializeApp(config);
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    PhilosophyComponent,
+    AboutUsComponent,
     VideosComponent,
     LogsComponent,
-    ResourcesComponent,
     GuidesComponent,
     MPlusComponent,
     RosterComponent,
@@ -66,14 +65,15 @@ firebase.initializeApp(config);
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: "", component: HomeComponent, pathMatch: "full" },
-      { path: "mplus", component: MPlusComponent },
-      { path: "philosophy", component: PhilosophyComponent },
-      { path: "videos", component: VideosComponent },
-      { path: "logs", component: LogsComponent },
-      { path: "resources", component: ResourcesComponent },
-      { path: "guides", component: GuidesComponent },
-      { path: "roster", component: RosterComponent }
+      { path: '', component: HomeComponent },
+      { path: 'mplus', component: MPlusComponent },
+      { path: 'about-us', component: AboutUsComponent },
+      { path: 'videos', component: VideosComponent },
+      { path: 'logs', component: LogsComponent },
+      { path: 'guides', component: GuidesComponent },
+      { path: 'roster', component: RosterComponent },
+      { path : '**', pathMatch: 'full', redirectTo: ''},
+
     ]),
     BrowserAnimationsModule,
     MatSnackBarModule,
@@ -91,13 +91,13 @@ firebase.initializeApp(config);
     MatTabsModule,
     MatIconModule,
     MatTooltipModule,
+    MatDividerModule,
     MatCardModule,
     FlexLayoutModule,
     MatButtonModule,
     MatDividerModule,
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

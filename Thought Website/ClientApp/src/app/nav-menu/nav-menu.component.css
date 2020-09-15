@@ -21,7 +21,7 @@ html {
   padding: .5rem 0;
   background: #333333;
   transition: none;
-  min-height: 77px;
+  height: 70px;
   color: #232323;
   z-index:1;
 }
@@ -49,4 +49,3 @@ html {
 .margin-right {
   margin-right: 10%;
 }
-
