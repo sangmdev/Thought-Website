@@ -15,6 +15,7 @@ import { MatCardModule } from "@angular/material/card";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from "@angular/material/divider";
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
@@ -84,7 +85,8 @@ firebase.initializeApp(config);
     MatCardModule,
     FlexLayoutModule,
     MatButtonModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTabsModule
   ],
   providers: [
   ],
