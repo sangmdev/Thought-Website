@@ -16,6 +16,9 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatIconModule } from "@angular/material/icon";
 
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
@@ -87,7 +90,7 @@ firebase.initializeApp(config);
     MatGridListModule,
     MatTabsModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
     MatCardModule,
     FlexLayoutModule,
     MatButtonModule,
