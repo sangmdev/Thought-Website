@@ -16,15 +16,15 @@ import {MatGridListModule} from '@angular/material/grid-list'
 import {MatTabsModule} from '@angular/material/tabs'
 import {MatIconModule} from '@angular/material/icon'
 import {MatTooltipModule} from '@angular/material/tooltip'
+import {MatDividerModule} from '@angular/material/divider'
 
 
 import { AppComponent } from './app.component'
 import { NavMenuComponent } from './nav-menu/nav-menu.component'
 import { HomeComponent } from './home/home.component'
-import { PhilosophyComponent } from './philosophy/philosophy.component'
+import { AboutUsComponent } from './about-us/about-us.component'
 import { VideosComponent } from './videos/videos.component'
 import { LogsComponent } from './logs/logs.component'
-import { ResourcesComponent } from './resources/resources.component'
 import { GuidesComponent } from './guides/guides.component'
 import { MPlusComponent } from './mplus/mplus.component'
 import { RosterComponent } from './roster/roster.component'
@@ -50,10 +50,9 @@ firebase.initializeApp(config);
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    PhilosophyComponent,
+    AboutUsComponent,
     VideosComponent,
     LogsComponent,
-    ResourcesComponent,
     GuidesComponent,
     MPlusComponent,
     RosterComponent,
@@ -66,12 +65,11 @@ firebase.initializeApp(config);
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'mplus', component: MPlusComponent },
-      { path: 'philosophy', component: PhilosophyComponent },
+      { path: 'about-us', component: AboutUsComponent },
       { path: 'videos', component: VideosComponent },
       { path: 'logs', component: LogsComponent },
-      { path: 'resources', component: ResourcesComponent },
       { path: 'guides', component: GuidesComponent },
-      { path: 'roster', component: RosterComponent }
+      { path: 'roster', component: RosterComponent },
     ]),
     BrowserAnimationsModule,
     MatSnackBarModule,
@@ -89,7 +87,8 @@ firebase.initializeApp(config);
     MatGridListModule,
     MatTabsModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

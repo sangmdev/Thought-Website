@@ -21,3 +21,10 @@ li {
   list-style: none;
   margin-bottom: 10px;
 }
+
+.section-header{
+  text-align: center;
+}
+.sub-header{
+  text-align: center;
+}
