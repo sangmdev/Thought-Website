@@ -11,14 +11,14 @@ ul{
   width: 90vh;
 }
 
-  ul li::before {
+  /* ul li::before {
     position: absolute;
     left: 0px;
     content: '✓';
     margin-top: 2px;
-  }
+  } */
 li {
-  list-style: none;
+  /* list-style: none; */
   margin-bottom: 10px;
 }
 
