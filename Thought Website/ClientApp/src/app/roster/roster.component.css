@@ -55,6 +55,7 @@ mat-card {
   height: 300px;
   width: 250px;
   overflow:hidden;
+  margin-left:8px;
 }
 
 .mat-raised-button{
