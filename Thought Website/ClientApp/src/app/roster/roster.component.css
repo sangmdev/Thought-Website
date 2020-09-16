@@ -18,7 +18,45 @@ mat-card.mat-elevation-z4 {
   box-shadow: 0 2px 4px -1px #512DA8, 0 4px 5px 0 #512DA8, 0 1px 10px 0 #512DA8;
 }
 
-.thumbnail{
-   width: 90px;
-   height: 90px;
+.char-tagline {
+  font-size: 12px;
+  align-items: center;
+  display: inline-flex;
+}
+
+mat-card:hover {
+  transform: scale(1.15);
+  box-shadow: 4px 4px 14px #512DA8;
+}
+
+mat-card {
+  transition: 0.5s ease;
+  cursor: pointer;
+  margin: 30px;
+}
+
+::ng-deep.mat-card-header-text, .mat-card-title {
+  width: 100% !important;
+}
+
+.mat-card-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.thumbnail {
+  width: 280px;
+  max-height: 250px;
+  transform: scale(2);
+  margin-top: 50px !important;
+}
+
+.hide-overflow{
+  height: 300px;
+  width: 250px;
+  overflow:hidden;
+}
+
+.mat-raised-button{
+  margin: 0 8px !important;
 }

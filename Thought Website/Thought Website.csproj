@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\interfaces\ICharacterData.ts" />
+    <None Remove="ClientApp\src\app\interfaces\ICharacterRender.ts" />
     <None Remove="ClientApp\src\app\interfaces\IGuild.ts" />
     <None Remove="ClientApp\src\app\interfaces\IGuildMember.ts" />
     <None Remove="ClientApp\src\app\interfaces\ILogData.ts" />
