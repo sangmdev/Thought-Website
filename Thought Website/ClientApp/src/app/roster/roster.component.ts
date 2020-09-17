@@ -39,7 +39,7 @@ export class RosterComponent implements OnInit {
           officers.map(member => {
             return this.raiderIoService.getCharacterInformation(member.character.name);
           })
-        ).subscribe(allResults => { this.officerRoster = allResults });
+        ).subscribe(allResults => { this.officerRoster = allResults; this.getCharacterRendersOfficers() });
       });
   }
 
@@ -49,20 +49,43 @@ export class RosterComponent implements OnInit {
       this.guildMasters.map(member => {
         return this.raiderIoService.getCharacterInformation(member);
       })
-    ).subscribe(allResults => { this.guildMasterRoster = allResults});
+    ).subscribe(allResults => { this.guildMasterRoster = allResults; this.getCharacterRendersGuildLeaders()});
   }
 
   // Get guild roster and filter down to only mythic core roster.
   getMythicCoreRoster() {
     this.blizzApiService.getGuildRoster(this.accessToken.access_token).subscribe(
       guild => {
-        var officers = guild.members.filter(element => element.rank === 5);
+        var mythicCore = guild.members.filter(element => element.rank === 5 || element.rank === 2 || element.rank === 3);
         forkJoin(
-          officers.map(member => {
+          mythicCore.map(member => {
             return this.raiderIoService.getCharacterInformation(member.character.name);
           })
-        ).subscribe(allResults => { this.mythicCoreRoster = allResults });
+        ).subscribe(allResults => { this.mythicCoreRoster = allResults;; this.getCharacterRendersMythicCore(); });
       });
+  }
 
+  // Get character renders for mythic core team, store in appropriate character objects.
+  getCharacterRendersMythicCore() {
+    this.mythicCoreRoster.forEach(member => {
+      this.blizzApiService.getCharacterRender(this.accessToken.access_token, member.name.toLowerCase()).subscribe(
+        result => { member.render_url = result.render_url });
+    });
+  }
+  // Get character renders for officers, store in appropriate character objects.
+  getCharacterRendersOfficers() {
+    this.officerRoster.forEach(member => {
+      this.blizzApiService.getCharacterRender(this.accessToken.access_token, member.name.toLowerCase()).subscribe(
+        result => { member.render_url = result.render_url });
+    });
+  }
+
+  // Get character renders for guild leaders, store in appropriate character objects.
+  getCharacterRendersGuildLeaders() {
+    
+    this.guildMasterRoster.forEach(member => {
+      this.blizzApiService.getCharacterRender(this.accessToken.access_token, member.name.toLowerCase()).subscribe(
+        result => { member.render_url = result.render_url });
+    });
   }
 }
