@@ -2,6 +2,7 @@
 
 table{
   width: 60%;
+  margin: 20px;
 }
 .mat-column-rank{
   width: 10%
@@ -17,13 +18,7 @@ table.center {
   margin-left:auto;
   margin-right:auto;
 }
-.mat-input-element {
-  color: white;
-}
-.mat-input-element::placeholder {
-  color: white;
-}
-.mat-display-1{
+.mat-input-element, .mat-input-element::placeholder, .mat-display-1 {
   color: white;
 }
 .add-char-input{
@@ -31,11 +26,8 @@ table.center {
   align-items: center;
   justify-content: center;
 }
-.mat-header-cell {
+.mat-header-cell, .mat-cell {
   justify-content: center;
-}
-.mat-cell {
-  justify-content:center;
 }
 .tier-1{
   color:yellow;
@@ -54,5 +46,13 @@ table.center {
 }
 .mat-column-tier {
   width: 15% !important;
-
+}
+.mat-column-class {
+  width: 8% !important;
+}
+.star-icon{
+  margin: 1px
+}
+.tier-icon{
+  margin-right: 7px
 }

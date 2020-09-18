@@ -5,4 +5,5 @@ export interface ICharacterData {
   tier: Number;
   char_class: String;
   spec: String;
+  stars: Number;
 }

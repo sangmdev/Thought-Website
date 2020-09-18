@@ -18,7 +18,7 @@ export class MPlusComponent implements OnInit {
   allScores: ICharacterData[];
   dbSearchCompleted = false;
   addCharName: string;
-  displayedColumns: string[] = ['rank', 'name', 'score', 'tier', ];
+  displayedColumns: string[] = ['rank', 'class', 'name', 'score', 'tier', ];
   topTen: ICharacterData[];
   scoresInTier: ICharacterData[];
 
