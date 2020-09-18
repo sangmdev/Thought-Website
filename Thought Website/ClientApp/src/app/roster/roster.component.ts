@@ -17,6 +17,7 @@ export class RosterComponent implements OnInit {
   guildMasterRoster: IGuildMember[] = [];
   guildMasters = ["Judlas", "Pìp"];
   mythicCoreRoster: IGuildMember[] = [];
+  isLoaded = false;
 
   constructor(private readonly blizzApiService: BlizzApiService, private readonly raiderIoService: RaiderIoService) {}
 
@@ -27,6 +28,7 @@ export class RosterComponent implements OnInit {
         this.getOfficerRoster();
         this.getLeaderRoster();
         this.getMythicCoreRoster();
+        this.isLoaded = true;
       });
   }
 
