@@ -2,6 +2,7 @@ import * as moment from "moment";
 import { Injectable } from "@angular/core";
 import { RaiderIoService } from "./raider-io.service";
 import * as firebase from "firebase/app";
+import {kebabCase} from "lodash"
 
 @Injectable({
   providedIn: "root"
@@ -42,9 +43,11 @@ export class MythicPlusDatabase{
         if(!found){
           const rank = snapshot.numChildren() - index
           const score = character.val().score
+          const char_class = kebabCase(character.val().char_class)
+          const spec = character.val().spec
           const roundedScore = Math.floor(score / 500) * 500
           const tier = tierMap[roundedScore] ? tierMap[roundedScore] : 1
-          allScores.unshift({ rank, name: character.key, score, tier})
+          allScores.unshift({ rank, name: character.key, score, tier, char_class, spec})
         }
         index += 1
       })
@@ -56,6 +59,8 @@ export class MythicPlusDatabase{
     try{
       const charName = cn.toLowerCase()
       const data = await this.raiderIoService.getCharacterGuildData(charName)
+      const char_class = data.class
+      const spec = data.active_spec_name
       const score = data.mythic_plus_scores_by_season[0].scores.all
       const entries = await this.getAllSavedScores()
 
@@ -72,6 +77,8 @@ export class MythicPlusDatabase{
         firebase.database().ref('characters/' + charName).set({
           lastScores: [{score, date: moment().format('L')}],
           score,
+          char_class,
+          spec,
         });
       }
       return data

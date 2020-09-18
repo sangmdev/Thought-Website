@@ -6,21 +6,14 @@
 <mat-tab-group [dynamicHeight]='true' mat-align-tabs="center">
   <mat-tab label="Top Ten">
     <div class="container" style="font-size: 12px">
-      <div class="add-char-input mt-1">
-        <mat-form-field class="center mt-3" appearance="outline">
-          <mat-label>Character Name</mat-label>
-          <input matInput type="text" [(ngModel)]="addCharName" />
-        </mat-form-field>
-        <button class='ml-3' mat-raised-button color="primary" (click)="addCharacter()">Add Character</button>
-      </div>
       <table score-table mat-table class='mt-2 center' *ngIf="allScores && allScores.length > 0" [dataSource]="allScores.slice(0,10)">
         <ng-container matColumnDef="rank">
             <th mat-header-cell *matHeaderCellDef> Rank </th>
-            <td mat-cell *matCellDef="let score"> {{score.rank}} </td>
+            <td mat-cell *matCellDef="let score"> {{score.rank}}
         </ng-container>
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let score"> {{score.name | titlecase}} </td>
+            <td mat-cell *matCellDef="let score"> <img class="class-icon" src='{{"assets/images/" + score.char_class + ".png"}}' height="35px" width="35px"> &nbsp; {{score.name | titlecase}} </td>
           </ng-container>
           <ng-container matColumnDef="score">
             <th mat-header-cell *matHeaderCellDef> Score </th>
@@ -30,6 +23,9 @@
             <th mat-header-cell *matHeaderCellDef> Tier </th>
             <td mat-cell *matCellDef="let score">
               <img matTooltip='{{"Tier " + score.tier}}' matTooltipPosition="right" src='{{"assets/images/tier-" + score.tier + ".png"}}' height="25px" width="25px" aria-hidden="false" aria-label="tier star">
+              <img class='plus-icon' src='{{"assets/images/star.png"}}' height="20px" width="20px" aria-hidden="false" aria-label="tier star">
+              <img class='plus-icon' src='{{"assets/images/star.png"}}' height="20px" width="20px" aria-hidden="false" aria-label="tier star">
+              <img class='plus-icon' src='{{"assets/images/star.png"}}' height="20px" width="20px" aria-hidden="false" aria-label="tier star">
             </td>
           </ng-container>
 
@@ -38,9 +34,7 @@
       </table>
       <div class='mb-2'>
       </div>
-
       <hr />
-
     </div>
   </mat-tab>
   <mat-tab label="Search">
@@ -60,7 +54,7 @@
             </ng-container>
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Name </th>
-                <td mat-cell *matCellDef="let score"> {{score.name | titlecase}} </td>
+                <td mat-cell *matCellDef="let score"> <img class="class-icon" src='{{"assets/images/" + score.char_class + ".png"}}' height="35px" width="35px"> &nbsp; {{score.name | titlecase}} </td>
               </ng-container>
               <ng-container matColumnDef="score">
                 <th mat-header-cell *matHeaderCellDef> Score </th>
@@ -80,5 +74,14 @@
         </div>
       </div>
 
+  </mat-tab>
+  <mat-tab label='Add Character'>
+    <div class="add-char-input mt-1">
+      <mat-form-field class="center mt-3" appearance="outline">
+        <mat-label>Character Name</mat-label>
+        <input matInput type="text" [(ngModel)]="addCharName" />
+      </mat-form-field>
+      <button class='ml-3' mat-raised-button color="primary" (click)="addCharacter()">Add Character</button>
+    </div>
   </mat-tab>
 </mat-tab-group>

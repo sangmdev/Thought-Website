@@ -1,7 +1,7 @@
 
 
 table{
-  width: 100%;
+  width: 60%;
 }
 .mat-column-rank{
   width: 10%
@@ -31,15 +31,10 @@ table.center {
   align-items: center;
   justify-content: center;
 }
-.tier-table{
-  width: 100%;
-}
 .mat-header-cell {
-  text-align: center !important;
   justify-content: center;
 }
 .mat-cell {
-  text-align: center;
   justify-content:center;
 }
 .tier-1{
@@ -50,4 +45,14 @@ table.center {
 }
 .highlight{
   background: gray;
+}
+.class-icon{
+  border: solid 2px darkGray;
+}
+.icon-column{
+  text-align: center;
+}
+.mat-column-tier {
+  width: 15% !important;
+
 }

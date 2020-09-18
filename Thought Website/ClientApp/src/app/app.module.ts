@@ -26,7 +26,6 @@ import { HomeComponent } from "./home/home.component";
 import { AboutUsComponent } from "./about-us/about-us.component";
 import { VideosComponent } from "./videos/videos.component";
 import { LogsComponent } from "./logs/logs.component";
-import { ResourcesComponent } from "./resources/resources.component";
 import { GuidesComponent } from "./guides/guides.component";
 import { MPlusComponent } from "./mplus/mplus.component";
 import { RosterComponent } from "./roster/roster.component";
