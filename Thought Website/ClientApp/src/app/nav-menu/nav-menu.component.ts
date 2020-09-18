@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { HostListener, Component } from "@angular/core";
 
 @Component({
   selector: "app-nav-menu",
@@ -7,6 +7,7 @@ import { Component } from "@angular/core";
 })
 export class NavMenuComponent {
   isExpanded = false;
+  isScrolled = false;
 
   collapse() {
     this.isExpanded = false;
@@ -14,5 +15,17 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+    const number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (number > 70) {
+      console.log(number);
+      this.isScrolled = true;
+    }
+    else {
+      this.isScrolled = false;
+    }
   }
 }

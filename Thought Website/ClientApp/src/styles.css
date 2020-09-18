@@ -46,6 +46,7 @@ body {
 
 .hero-image-container {
   height: 150px;
+  margin-top: 77px;
   display: flex; /* establish flex container */
   flex-direction: column; /* stack flex items vertically */
   position: relative;
@@ -54,15 +55,34 @@ body {
   @include justify-content(center);
 }
 
-.page-name {
+.header-text-container {
   position: absolute;
   left: 50%; /* horizontal alignment */
   top: 50%; /* vertical alignment */
   transform: translate(-50%, -50%);
+}
+.page-name {
   color: black;
   font-size: 4rem;
   font-family: SpectralBold, serif;
 }
 .margin-top {
   margin-top: 2%;
+}
+
+.fadeInBottom {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: fadeInBottom
+}
+
+@keyframes fadeInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  to {
+    opacity: 1
+  }
 }
