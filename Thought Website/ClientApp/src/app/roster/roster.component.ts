@@ -51,7 +51,7 @@ export class RosterComponent implements OnInit {
       this.guildMasters.map(member => {
         return this.raiderIoService.getCharacterInformation(member);
       })
-    ).subscribe(allResults => { this.guildMasterRoster = allResults; this.getCharacterRendersGuildLeaders()});
+    ).subscribe(allResults => { this.guildMasterRoster = allResults; this.getCharacterRendersGuildLeaders();});
   }
 
   // Get guild roster and filter down to only mythic core roster.
@@ -63,7 +63,7 @@ export class RosterComponent implements OnInit {
           mythicCore.map(member => {
             return this.raiderIoService.getCharacterInformation(member.character.name);
           })
-        ).subscribe(allResults => { this.mythicCoreRoster = allResults;; this.getCharacterRendersMythicCore(); });
+        ).subscribe(allResults => { this.mythicCoreRoster = allResults; this.getCharacterRendersMythicCore(); });
       });
   }
 
@@ -84,7 +84,6 @@ export class RosterComponent implements OnInit {
 
   // Get character renders for guild leaders, store in appropriate character objects.
   getCharacterRendersGuildLeaders() {
-    
     this.guildMasterRoster.forEach(member => {
       this.blizzApiService.getCharacterRender(this.accessToken.access_token, member.name.toLowerCase()).subscribe(
         result => { member.render_url = result.render_url });
