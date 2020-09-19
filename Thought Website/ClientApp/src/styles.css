@@ -23,7 +23,6 @@ code {
 
 html {
   overflow-x: hidden;
-  overflow-y: scroll;
   margin-right: calc(-1 * (100vw - 100%));
 }
 
