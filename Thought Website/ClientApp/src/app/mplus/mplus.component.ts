@@ -27,13 +27,13 @@ export class MPlusComponent implements OnInit {
   }
 
   async getScoreFromDb() {
-    const foundChar = this.allScores.find(score => score.name === this.searchCharName)
-    if(!foundChar){
-      this.openErrorSnackBar('Character not found', 'Dismiss')
-    } else {
-      this.getScoresInTier()
-    }
-    this.dbSearchCompleted = true
+      const foundChar = await this.MPlusService.getSavedScore(this.searchCharName.trim())
+      if(foundChar){
+        this.getScoresInTier()
+      } else {
+        this.openErrorSnackBar('Character not found', 'Dismiss')
+      }
+      this.dbSearchCompleted = true
   }
 
   async getAllScoresFromDb() {
@@ -45,9 +45,10 @@ export class MPlusComponent implements OnInit {
   }
 
   getScoresInTier(){
-    this.selectedChar = this.allScores.find(score => score.name === this.searchCharName)
+    this.selectedChar = this.allScores.find(score => score.name.toLowerCase() === this.searchCharName.toLowerCase().trim())
     this.scoresInTier = this.allScores.filter(score => {
-      return score.tier === this.selectedChar.tier
+      const starDiff = score.totalStars - this.selectedChar.totalStars
+      return Math.abs(starDiff) <= 1
     })
   }
 
