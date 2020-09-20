@@ -7,6 +7,7 @@ a.navbar-brand {
 html {
   font-size: 14px;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -21,19 +22,18 @@ html {
   padding: .5rem 0;
   background: #333333;
   transition: none;
-  height: 70px;
+  height: 77px;
   color: #232323;
-  z-index:1;
+  z-index:5;
 }
 
-.thought-logo
-{
-  height:3.8rem;
+.thought-logo {
+  height: 3.8rem;
   margin-left: 20%;
+  transition: 0.25s;
 }
 
 .thought-logo:hover{
-  border-bottom: 1px solid white;
 }
 
 .nav-icons{
@@ -42,10 +42,29 @@ html {
 
 .nav-link:hover {
   color: #c1c1c1 !important;
-  border-bottom: 2px solid white;
 }
-
 
 .margin-right {
   margin-right: 10%;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar{
+  background: #232323 !important;
+}
+
+.navbar-short {
+  height: 60px !important;
+  transition: all .2s !important;
+}
+
+.navbar-logo {
+  height: 3rem !important;
+  font-size: 4rem;
+  transition: 0.25s;
 }

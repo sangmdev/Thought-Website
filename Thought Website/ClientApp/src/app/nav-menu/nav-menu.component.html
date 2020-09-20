@@ -1,7 +1,7 @@
 <header>
-  <nav id="nav-bar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark">
+  <nav id="nav-bar" [ngClass]="{'navbar-short': isScrolled}" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark sticky">
     <div class="container-fluid">
-      <a class="navbar-brand" [routerLink]="['/']"><img class="thought-logo" src="assets/images/thought-logo.png" alt="thought logo" /></a>
+      <a class="navbar-brand" [routerLink]="['/']"><img [ngClass]="{'navbar-logo': isScrolled}" class="thought-logo" src="assets/images/thought-logo.png" alt="thought logo" /></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -20,7 +20,7 @@
               [routerLinkActive]="['link-active']"
               [routerLinkActiveOptions]="{ exact: true }">
 
-            <a class="nav-link text-white" [routerLink]="['/about-us']"><span class="nav-icons material-icons">wb_sunny</span> About Us</a>
+            <a class="nav-link text-white" [routerLink]="['/about-us']"><span class="nav-icons material-icons about-us-icon">wb_sunny</span> About Us</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-white" [routerLink]="['/roster']"><span class="nav-icons material-icons">emoji_people</span> Roster</a>

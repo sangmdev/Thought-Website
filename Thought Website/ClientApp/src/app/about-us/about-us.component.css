@@ -11,14 +11,7 @@ ul{
   width: 90vh;
 }
 
-  /* ul li::before {
-    position: absolute;
-    left: 0px;
-    content: '✓';
-    margin-top: 2px;
-  } */
 li {
-  /* list-style: none; */
   margin-bottom: 10px;
 }
 
@@ -28,3 +21,19 @@ li {
 .sub-header{
   text-align: center;
 }
+
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-header {
+  animation: 1s ease-ot 0s 1 slideInFromBottom;
+}
+
+

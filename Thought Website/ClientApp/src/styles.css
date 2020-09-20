@@ -26,6 +26,21 @@ html {
   margin-right: calc(-1 * (100vw - 100%));
 }
 
+html::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+}
+
+html::-webkit-scrollbar {
+  width: 6px;
+  background-color: #673ab7;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: #673ab7;
+}
+
+
 html, body {
   max-height: 100%;
   background: #333333;
@@ -46,6 +61,7 @@ body {
 
 .hero-image-container {
   height: 150px;
+  margin-top: 77px;
   display: flex; /* establish flex container */
   flex-direction: column; /* stack flex items vertically */
   position: relative;
@@ -54,15 +70,62 @@ body {
   @include justify-content(center);
 }
 
-.page-name {
+.header-text-container {
   position: absolute;
   left: 50%; /* horizontal alignment */
   top: 50%; /* vertical alignment */
   transform: translate(-50%, -50%);
+}
+.page-name {
   color: black;
   font-size: 4rem;
   font-family: SpectralBold, serif;
 }
 .margin-top {
   margin-top: 2%;
+}
+
+.fadeInBottom {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: fadeInBottom
+}
+
+@keyframes fadeInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+.loader-container {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.loader {
+  border: 16px solid white;
+  border-top: 16px solid #673ab7;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
