@@ -1,8 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnChanges } from "@angular/core";
 import { RaiderIoService } from "../../services/raider-io.service";
 import { MythicPlusDatabase } from "../../services/mythic-plus-database.service"
 import { ICharacterData } from "../interfaces/ICharacterData";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+
 
 @Component({
   selector: "app-home",
@@ -10,7 +14,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ["./mplus.component.css"]
 
 })
-export class MPlusComponent implements OnInit {
+export class MPlusComponent implements OnInit, OnChanges {
 
   ioScore: number;
   searchCharName: string;
@@ -19,16 +23,17 @@ export class MPlusComponent implements OnInit {
   dbSearchCompleted = false;
   addCharName: string;
   displayedColumns: string[] = ['rank', 'class', 'name', 'score', 'tier', ];
-  topTen: ICharacterData[];
   scoresInTier: ICharacterData[];
+  myControl = new FormControl();
+  options: string[];
 
   constructor(private readonly raiderIoService: RaiderIoService, readonly MPlusService: MythicPlusDatabase, private _snackBar: MatSnackBar) {
 
   }
 
   async getScoreFromDb() {
-      const foundChar = await this.MPlusService.getSavedScore(this.searchCharName.trim())
-      if(foundChar){
+      const foundScore = await this.MPlusService.getSavedScore(this.searchCharName.trim())
+      if(foundScore || foundScore === 0){
         this.getScoresInTier()
       } else {
         this.openErrorSnackBar('Character not found', 'Dismiss')
@@ -76,10 +81,20 @@ export class MPlusComponent implements OnInit {
       panelClass: ['mat-toolbar', 'mat-primary']
     });
   }
+  ngOnChanges(){
+    console.log('changes')
+    this.getOptionsFromDb()
+  }
 
-
+  async getOptionsFromDb(){
+    this.MPlusService.getTrackedChars().then((res) => {
+      console.log(res)
+      this.options = res
+    })
+  }
 
   ngOnInit() {
     this.getAllScoresFromDb()
+    this.getOptionsFromDb()
   }
 }

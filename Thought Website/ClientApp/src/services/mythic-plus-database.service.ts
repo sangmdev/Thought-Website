@@ -29,12 +29,21 @@ export class MythicPlusDatabase{
     } catch(e) {
       throw e
     }
+  }
 
+  async getTrackedChars(){
+    const allScores = []
+    const ref = firebase.database().ref('characters').orderByChild('name')
+    await ref.on('value', function (snapshot) {
+      snapshot.forEach(character => {
+        allScores.push(character.key)
+      })
+    }.bind(this));
+    return allScores
   }
 
   async getAllSavedScores(){
     const allScores = []
-    const tierMap = {2500: 1, 2000: 2, 1500: 3, 1000: 4, 500: 5, 0: 6}
     const ref = firebase.database().ref('characters').orderByChild('score')
     await ref.on('value', function (snapshot) {
       let index = 0
@@ -45,7 +54,6 @@ export class MythicPlusDatabase{
           const score = character.val().score
           const char_class = kebabCase(character.val().char_class)
           const spec = character.val().spec
-          const roundedScore = Math.floor(score / 500) * 500
           const {tier, stars, bracket, totalStars} = this.getTierAndStars(score)
           allScores.unshift({ rank, name: character.key, score, tier, char_class, spec, stars, bracket, totalStars})
         }

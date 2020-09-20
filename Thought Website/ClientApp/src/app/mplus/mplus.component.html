@@ -43,9 +43,18 @@
         <div class="add-char-input mt-1">
           <mat-form-field class="center mt-3" appearance="outline">
             <mat-label>Character Name</mat-label>
-            <input matInput type="text" [(ngModel)]="searchCharName" />
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="searchCharName"
+              [matAutocomplete]="auto"
+             >
+             <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of options" [value]="option | titlecase">
+                {{option | titlecase}}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
-          <button class='ml-3' mat-raised-button color="primary" (click)="getScoreFromDb()">Search Character</button>
         </div>
         <div *ngIf="dbSearchCompleted">
           <table score-table mat-table class='mt-2 center mat-elevation-z8 tier-table' *ngIf="scoresInTier && scoresInTier.length > 0" [dataSource]="scoresInTier">
