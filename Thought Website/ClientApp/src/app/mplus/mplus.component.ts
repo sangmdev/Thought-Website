@@ -13,12 +13,12 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class MPlusComponent implements OnInit {
 
   ioScore: number;
-  searchCharName: string;
+  searchCharName: string = '';
   selectedChar: ICharacterData;
   allScores: ICharacterData[];
   dbSearchCompleted = false;
   addCharName: string;
-  displayedColumns: string[] = ['rank', 'name', 'score', 'tier'];
+  displayedColumns: string[] = ['rank', 'class', 'name', 'score', 'tier', ];
   topTen: ICharacterData[];
   scoresInTier: ICharacterData[];
 
@@ -27,13 +27,17 @@ export class MPlusComponent implements OnInit {
   }
 
   async getScoreFromDb() {
-    const foundChar = this.allScores.find(score => score.name === this.searchCharName)
-    if(!foundChar){
-      this.openErrorSnackBar('Character not found', 'Dismiss')
-    } else {
-      this.getScoresInTier()
+    try{
+      const foundScore = await this.MPlusService.getSavedScore(this.searchCharName.trim())
+      if(foundScore || foundScore === 0){
+        this.getScoresInTier()
+      } else {
+        throw Error('Character not found')
+      }
+    }catch(e){
+      this.openErrorSnackBar(e.message, 'Dismiss')
     }
-    this.dbSearchCompleted = true
+      this.dbSearchCompleted = true
   }
 
   async getAllScoresFromDb() {
@@ -45,9 +49,10 @@ export class MPlusComponent implements OnInit {
   }
 
   getScoresInTier(){
-    this.selectedChar = this.allScores.find(score => score.name === this.searchCharName)
+    this.selectedChar = this.allScores.find(score => score.name.toLowerCase() === this.searchCharName.toLowerCase().trim())
     this.scoresInTier = this.allScores.filter(score => {
-      return score.tier === this.selectedChar.tier
+      const starDiff = score.totalStars - this.selectedChar.totalStars
+      return Math.abs(starDiff) <= 1
     })
   }
 
