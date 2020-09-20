@@ -21,7 +21,6 @@ export class NavMenuComponent {
   onWindowScroll() {
     const number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     if (number > 70) {
-      console.log(number);
       this.isScrolled = true;
     }
     else {
