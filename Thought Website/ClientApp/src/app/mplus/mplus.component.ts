@@ -13,7 +13,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class MPlusComponent implements OnInit {
 
   ioScore: number;
-  searchCharName: string;
+  searchCharName: string = '';
   selectedChar: ICharacterData;
   allScores: ICharacterData[];
   dbSearchCompleted = false;
@@ -27,12 +27,16 @@ export class MPlusComponent implements OnInit {
   }
 
   async getScoreFromDb() {
-      const foundChar = await this.MPlusService.getSavedScore(this.searchCharName.trim())
-      if(foundChar){
+    try{
+      const foundScore = await this.MPlusService.getSavedScore(this.searchCharName.trim())
+      if(foundScore || foundScore === 0){
         this.getScoresInTier()
       } else {
-        this.openErrorSnackBar('Character not found', 'Dismiss')
+        throw Error('Character not found')
       }
+    }catch(e){
+      this.openErrorSnackBar(e.message, 'Dismiss')
+    }
       this.dbSearchCompleted = true
   }
 
