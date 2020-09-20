@@ -21,7 +21,9 @@ exports.refreshScores = functions.pubsub.schedule('every 1 hours').onRun((contex
       const res = axios.get(url)
         .then(res => {
           const score = res.data.mythic_plus_scores_by_season[0].scores.all
-          const newEntry = {score, lastScores}
+          const char_class = res.data.class
+          const spec = res.data.active_spec_name
+          const newEntry = {score, lastScores, char_class, spec}
           admin.database().ref('characters/' + name).set(newEntry)
           functions.logger.log(`Set chracters/${name} with ${JSON.stringify(newEntry)}`)
         })
@@ -32,8 +34,3 @@ exports.refreshScores = functions.pubsub.schedule('every 1 hours').onRun((contex
   })
   return null
 })
-
-// exports.scheduleTesting = functions.pubsub.schedule('every 5 minutes').onRun((context) => {
-//   functions.logger.log(`Logging every five minutes at this time`)
-//   return null
-// })
