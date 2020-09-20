@@ -20,8 +20,7 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatIconModule } from "@angular/material/icon";
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
@@ -60,7 +59,7 @@ firebase.initializeApp(config);
     GuidesComponent,
     MPlusComponent,
     RosterComponent,
-    FormatDatePipe
+    FormatDatePipe,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -100,6 +99,7 @@ firebase.initializeApp(config);
     MatDividerModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
