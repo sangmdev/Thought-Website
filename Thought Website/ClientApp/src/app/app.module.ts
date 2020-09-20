@@ -60,7 +60,7 @@ firebase.initializeApp(config);
     GuidesComponent,
     MPlusComponent,
     RosterComponent,
-    FormatDatePipe
+    FormatDatePipe,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),

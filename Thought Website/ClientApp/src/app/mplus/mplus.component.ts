@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from "@angular/core";
+import { Component, OnInit, OnChanges, ViewChild } from "@angular/core";
 import { RaiderIoService } from "../../services/raider-io.service";
 import { MythicPlusDatabase } from "../../services/mythic-plus-database.service"
 import { ICharacterData } from "../interfaces/ICharacterData";
@@ -6,7 +6,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-
+import { MatAutocompleteTrigger } from "@angular/material/autocomplete";
 
 @Component({
   selector: "app-home",
@@ -14,8 +14,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ["./mplus.component.css"]
 
 })
-export class MPlusComponent implements OnInit, OnChanges {
-
+export class MPlusComponent implements OnInit {
   ioScore: number;
   searchCharName: string;
   selectedChar: ICharacterData;
@@ -24,11 +23,15 @@ export class MPlusComponent implements OnInit, OnChanges {
   addCharName: string;
   displayedColumns: string[] = ['rank', 'class', 'name', 'score', 'tier', ];
   scoresInTier: ICharacterData[];
-  myControl = new FormControl();
+  searchName = new FormControl();
   options: string[];
+  filteredOptions: Observable<string[]>;
 
-  constructor(private readonly raiderIoService: RaiderIoService, readonly MPlusService: MythicPlusDatabase, private _snackBar: MatSnackBar) {
+  constructor(private readonly raiderIoService: RaiderIoService, readonly MPlusService: MythicPlusDatabase, private _snackBar: MatSnackBar) {}
 
+  ngOnInit() {
+    this.getAllScoresFromDb();
+    this.getOptionsFromDb();
   }
 
   async getScoreFromDb() {
@@ -60,7 +63,7 @@ export class MPlusComponent implements OnInit, OnChanges {
   async addCharacter(){
     await this.MPlusService.addCharacter(this.addCharName)
     .then(() => {
-      this.openSucessSnackBar(`Successfully added character ${this.addCharName}`, 'Dismiss')
+      this.openSuccessSnackBar(`Successfully added character ${this.addCharName}`, 'Dismiss')
     })
     .catch(err => {
       this.openErrorSnackBar(err.message, 'Dismiss')
@@ -75,26 +78,26 @@ export class MPlusComponent implements OnInit, OnChanges {
     });
   }
 
-  openSucessSnackBar(message: string, action: string) {
+  openSuccessSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 4000,
       panelClass: ['mat-toolbar', 'mat-primary']
     });
   }
-  ngOnChanges(){
-    console.log('changes')
-    this.getOptionsFromDb()
-  }
 
   async getOptionsFromDb(){
     this.MPlusService.getTrackedChars().then((res) => {
-      console.log(res)
-      this.options = res
+      this.options = res;
+      this.filteredOptions = this.searchName.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
     })
   }
 
-  ngOnInit() {
-    this.getAllScoresFromDb()
-    this.getOptionsFromDb()
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 }
