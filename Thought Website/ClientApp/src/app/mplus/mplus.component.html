@@ -45,7 +45,18 @@
         <div class="add-char-input mt-1">
           <mat-form-field class="center mt-3" appearance="outline">
             <mat-label>Character Name</mat-label>
-            <input matInput type="text" [(ngModel)]="searchCharName" />
+            <input matInput
+                   type="text"
+                   [formControl]="searchName"
+                   [(ngModel)]="searchCharName"
+                   [matAutocomplete]="auto"
+                   #trigger="matAutocompleteTrigger"
+                   (keyup.enter)="trigger.closePanel();getScoreFromDb()">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option | titlecase">
+                {{option | titlecase}}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
           <button class='ml-3' mat-raised-button color="primary" (click)="getScoreFromDb()">Search Character</button>
         </div>
