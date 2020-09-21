@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
+using RestSharp.Serialization;
 using Thought_Website.Models;
 
 namespace Thought_Website.Controllers
@@ -19,66 +21,61 @@ namespace Thought_Website.Controllers
     public class BlizzardController : ControllerBase
     {
         private const string blizzHostName = "https://us.api.blizzard.com";
-        private readonly IHttpClientFactory _httpClientFactory;
         private readonly ClientInfo _clientInfo;
-        public BlizzardController(IHttpClientFactory httpClientFactory, ClientInfo clientInfo) {
-            _httpClientFactory = httpClientFactory;
+        static readonly HttpClient client = new HttpClient();
+        private static AccessTokenResponse accessToken;
+        public BlizzardController(ClientInfo clientInfo) {
             _clientInfo = clientInfo;
         }
 
         // GET: api/Blizzard
-        public async Task GetAccessTokenAsync()
+        public async Task<AccessTokenResponse> GetAccessTokenAsync()
         {
             var request = new HttpRequestMessage(HttpMethod.Post, "https://na.battle.net/oauth/token");
-            var client = _httpClientFactory.CreateClient();
 
             byte[] bytes = Encoding.GetEncoding(28591).GetBytes($"{_clientInfo.ClientId}:{_clientInfo.ClientSecret}");
             var auth = Convert.ToBase64String(bytes);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Basic", auth);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", auth);
+            client.DefaultRequestHeaders.Add("Accept", "*/*");
+            var content = new FormUrlEncodedContent(
+                new KeyValuePair<string, string>[] {
+                    new KeyValuePair<string, string>("grant_type", "client_credentials"),
+                 }
+            );
 
-            MultipartFormDataContent form = new MultipartFormDataContent();
-            string body = "grant_type=client_credentials";
-            request.Content = new StringContent(body,
-                                                    Encoding.UTF8,
-                                                    "application/x-www-form-urlencoded");//CONTENT-TYPE header  
-            request.Headers.Add("Accept", "*/*");
-            List<KeyValuePair<string, string>> postData = new List<KeyValuePair<string, string>>();
+            HttpResponseMessage tokenResponse = await client.PostAsync("https://us.battle.net/oauth/token", content);
+            tokenResponse.EnsureSuccessStatusCode();
 
-            postData.Add(new KeyValuePair<string, string>("grant_type", "client_credentials"));
-            request.Content = new FormUrlEncodedContent(postData);
-
-            var test = System.Net.Dns.GetHostName();
-            HttpResponseMessage tokenResponse = client.PostAsync("https://na.battle.net/oauth/token", new FormUrlEncodedContent(postData)).Result;
-
-            HttpResponseMessage response = await client.SendAsync(request);
-            if (response.IsSuccessStatusCode)
-            {
-                Console.Write(response);
-            }
-            else
-            {
-                Console.Write(response);
-            }
-
-            //var client = new RestClient("https://na.battle.net/oauth/token");
-            //var request = new RestRequest(Method.POST);
-            //request.AddHeader("cache-control", "no-cache");
-            //request.AddHeader("content-type", "application/x-www-form-urlencoded");
-            //request.AddParameter("application/x-www-form-urlencoded", $"grant_type=client_credentials&client_id={clientId}&client_secret={clientSecret}", ParameterType.RequestBody);
-            //IRestResponse response = client.Execute(request);
+            var jsonContent = await tokenResponse.Content.ReadAsStringAsync();
+            AccessTokenResponse token = JsonConvert.DeserializeObject<AccessTokenResponse>(jsonContent);
+            accessToken = token;
+            return token;
         }
 
-        [HttpGet("guild")]
-        public IEnumerable<Member> GetGuild(string accessToken)
+        [HttpGet, Route("guild")]
+        public async Task<Guild> GetGuildAsync(string accessToken)
         {
-            var client = new RestClient(blizzHostName);
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Authorization", $"Bearer {accessToken}");
-            request.AddHeader("Battlenet-Namespace", "profile-us");
-            IRestResponse response = client.Execute(request);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            return JsonConvert.DeserializeObject<IEnumerable<Member>>(response.Content);
+            HttpResponseMessage response = await client.GetAsync(blizzHostName + "/data/wow/guild/sargeras/thought/roster?namespace=profile-us");
+            response.EnsureSuccessStatusCode();
+
+            var jsonContent = await response.Content.ReadAsStringAsync();
+            Guild guild = JsonConvert.DeserializeObject<Guild>(jsonContent);
+            return guild;
+        }
+
+        [HttpGet, Route("characterRender")]
+        public async Task<CharacterRender> GetCharacterRenderAsync(string accessToken, string charName)
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            HttpResponseMessage response = await client.GetAsync(blizzHostName + $"/profile/wow/character/sargeras/{charName}/character-media?namespace=profile-us");
+            response.EnsureSuccessStatusCode();
+
+            var jsonContent = await response.Content.ReadAsStringAsync();
+            CharacterRender charRender = JsonConvert.DeserializeObject<CharacterRender>(jsonContent);
+            return charRender;
         }
     }
 }
