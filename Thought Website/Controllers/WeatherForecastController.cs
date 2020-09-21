@@ -9,31 +9,34 @@ namespace Thought_Website.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class BlizzardApiController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+    //    private static getAccessToken()
+    //    {
+    //        const httpHeaders = new HttpHeaders()
+    //          .set("Authorization", `Basic ` +btoa(`${ environment.clientId}:${ environment.clientSecret}`))
+    // .set("Content-Type", "application/x-www-form-urlencoded")
+    // .set("Accept", "*/*");
+    //        var body = new HttpParams().set("grant_type", "client_credentials")
+    //return this.http.post("https://us.battle.net/oauth/token", body, { 'headers': httpHeaders });
+    //    }
 
-        private readonly ILogger<WeatherForecastController> _logger;
+    //        [HttpGet]
+    //        private static getGuildRoster(accessToken) : Observable<IGuild> {
+    //    const headers = new HttpHeaders()
+    //      .set("Content-Type", "application/json")
+    //      .set("Authorization", `Bearer ${accessToken}`)
+    //      .set("Battlenet-Namespace", "profile-us");
+    //    return this.http.get<IGuild>(this.blizzHostName + "/data/wow/guild/sargeras/thought/roster", { 'headers': headers })
+    //  }
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }
+    //[HttpGet]
+    //private static getCharacterRender(accessToken, charName): Observable<ICharacterRender> {
+    //    const headers = new HttpHeaders()
+    //      .set("Content-Type", "application/json")
+    //      .set("Authorization", `Bearer ${ accessToken}`)
+    //      .set("Battlenet-Namespace", "profile-us");
+    //    return this.http.get<ICharacterRender>(this.blizzHostName + `/ profile / wow / character / sargeras /${ charName}/ character - media`, { 'headers' : headers })
+    //  }
     }
 }

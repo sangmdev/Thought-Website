@@ -5,14 +5,19 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Thought_Website.Models;
 
 namespace Thought_Website
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -33,6 +38,8 @@ namespace Thought_Website
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddHttpClient();
+            services.AddSingleton(Configuration.GetSection("ClientInfo").Get<ClientInfo>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,7 +77,7 @@ namespace Thought_Website
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "ClientApp/dist";
 
                 if (env.IsDevelopment())
                 {
