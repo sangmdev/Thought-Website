@@ -9,7 +9,6 @@ const axios = require('axios')
 var querystring = require('querystring');
 admin.initializeApp(functions.config().firebase)
 const app = express();
-app.use(cors);
 blizzHostName = "https://us.api.blizzard.com"
 
 exports.refreshScores = functions.pubsub.schedule('every 1 hours').onRun((context) => {
@@ -60,10 +59,10 @@ getAccessToken = async () => {
 
 exports.getGuildRoster = functions.https.onRequest(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*")
-  res.set("Access-Control-Allow-Methods", "GET")
-  res.set("Access-Control-Allow-Headers", "Content-Type")
-  if (req.method == 'OPTIONS') {
-    res.status(204).send('');
+  res.set("Access-Control-Allow-Methods", "GET, PUT, POST, OPTIONS")
+  res.set("Access-Control-Allow-Headers", "*")
+  if (req.method === 'OPTIONS') {
+    res.end();
   }
   const url = blizzHostName + "/data/wow/guild/sargeras/thought/roster"
   var accessToken = await getAccessToken()
@@ -77,24 +76,21 @@ exports.getGuildRoster = functions.https.onRequest(async (req, res) => {
   axios.get(url, {headers})
     .then(response => {
       response_data = response.data
-      functions.logger.log(`Successfully retrived data`)
-
+        res.json(response_data);
+        res.send(200);
     })
     .catch(err => {
-      response_data = err
-    })
-    .finally(() => {
-      res.json(response_data)
-      res.end();
+        response_data = err
+        res.status(400).end();
     })
 })
 
 exports.getCharacterRender = functions.https.onRequest(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*")
-  res.set("Access-Control-Allow-Methods", "GET")
-  res.set("Access-Control-Allow-Headers", "Content-Type")
-  if (req.method == 'OPTIONS') {
-    res.status(204).send('');
+  res.set("Access-Control-Allow-Methods", "GET, PUT, POST, OPTIONS")
+  res.set("Access-Control-Allow-Headers", "*")
+  if (req.method === 'OPTIONS') {
+    res.end();
   }
   var accessToken = await getAccessToken()
   if(!accessToken) throw new functions.https.HttpsError('No access token found')
@@ -109,12 +105,15 @@ exports.getCharacterRender = functions.https.onRequest(async (req, res) => {
   let response_data
   axios.get(url, {headers})
     .then(response => {
-      response_data = response.data
+        response_data = response.data
+        res.json(response_data);
+        res.send(200);
     })
     .catch(err => {
-      response_data = err
+        response_data = err
+        res.status(400).end();
     })
-    .finally(() => {
-      res.json(response_data)
-    })
+
 })
+
+app.use(cors);
