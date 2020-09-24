@@ -47,6 +47,7 @@ const config = {
   measurementId: "G-VNF1HPKTJW"
 };
 firebase.initializeApp(config);
+var functions = firebase.functions();
 
 @NgModule({
   declarations: [

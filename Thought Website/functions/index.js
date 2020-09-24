@@ -1,12 +1,17 @@
 const functions = require('firebase-functions')
+const express = require('express');
+const cors = require('cors')({origin: true});
+
 const moment = require('moment')
 const http = require('http')
 const admin = require('firebase-admin')
 const axios = require('axios')
-admin.initializeApp()
+var querystring = require('querystring');
+admin.initializeApp(functions.config().firebase)
+const app = express();
+blizzHostName = "https://us.api.blizzard.com"
 
 exports.refreshScores = functions.pubsub.schedule('every 1 hours').onRun((context) => {
-// exports.refreshScores = functions.https.onRequest(async (req, res) => {
   const currentDate = moment().format('L')
   const result = []
   const ref = admin.database().ref('characters')
@@ -34,3 +39,81 @@ exports.refreshScores = functions.pubsub.schedule('every 1 hours').onRun((contex
   })
   return null
 })
+
+getAccessToken = async () => {
+  const auth = {username: functions.config().blizzapi.clientid, password: functions.config().blizzapi.clientsecret}
+  let result = ''
+  const headers = {
+    "Content-Type" : "application/x-www-form-urlencoded",
+    "Accept": "*/*",
+  }
+  const body = querystring.stringify({'grant_type':'client_credentials'})
+  return axios.post("https://us.battle.net/oauth/token", body, {headers, auth})
+    .then( response => {
+      return response.data.access_token
+    })
+    .catch(error => {
+      return error
+    })
+}
+
+exports.getGuildRoster = functions.https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*")
+  res.set("Access-Control-Allow-Methods", "GET, PUT, POST, OPTIONS")
+  res.set("Access-Control-Allow-Headers", "*")
+  if (req.method === 'OPTIONS') {
+    res.end();
+  }
+  const url = blizzHostName + "/data/wow/guild/sargeras/thought/roster"
+  var accessToken = await getAccessToken()
+  if(!accessToken) throw new functions.https.HttpsError('No access token found')
+  const headers = {
+    "Authorization" : `Bearer ${accessToken}`,
+    "Content-Type" : "application/json",
+    "Battlenet-Namespace" : "profile-us",
+  }
+  let response_data
+  axios.get(url, {headers})
+    .then(response => {
+      response_data = response.data
+        res.json(response_data);
+        res.send(200);
+    })
+    .catch(err => {
+        response_data = err
+        res.status(400).end();
+    })
+})
+
+exports.getCharacterRender = functions.https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*")
+  res.set("Access-Control-Allow-Methods", "GET, PUT, POST, OPTIONS")
+  res.set("Access-Control-Allow-Headers", "*")
+  if (req.method === 'OPTIONS') {
+    res.end();
+  }
+  var accessToken = await getAccessToken()
+  if(!accessToken) throw new functions.https.HttpsError('No access token found')
+
+  const charName = req.query.charName
+  const url = blizzHostName + `/profile/wow/character/sargeras/${charName}/character-media`
+  const headers = {
+    'Authorization' : `Bearer ${accessToken}`,
+    "Content-Type" : "application/json",
+    "Battlenet-Namespace" : "profile-us"
+  }
+  let response_data
+  axios.get(url, {headers})
+    .then(response => {
+        response_data = response.data
+        res.json(response_data);
+        res.send(200);
+    })
+    .catch(err => {
+        response_data = err
+        res.status(400).end();
+    })
+
+})
+
+app.use(cors);
