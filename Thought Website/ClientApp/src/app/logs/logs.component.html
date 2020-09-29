@@ -43,7 +43,7 @@
     </ng-container>
     <ng-container matColumnDef="logUrl">
       <th mat-header-cell *matHeaderCellDef> Log URL </th>
-      <td mat-cell *matCellDef="let log"> <a href="{{log.logUrl}}">{{log.logUrl}}</a> </td>
+      <td mat-cell *matCellDef="let log"> <a href="{{log.logUrl}}" target="_blank">{{log.logUrl}}</a> </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
