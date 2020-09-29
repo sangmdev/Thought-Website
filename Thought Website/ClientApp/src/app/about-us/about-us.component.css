@@ -36,4 +36,8 @@ li {
   animation: 1s ease-ot 0s 1 slideInFromBottom;
 }
 
+.dash-list li {
+    list-style-type: '- ';
+}
+
 
