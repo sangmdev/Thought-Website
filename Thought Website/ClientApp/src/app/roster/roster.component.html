@@ -9,10 +9,10 @@
   <mat-tab-group [dynamicHeight]='true' mat-align-tabs="center">
     <mat-tab label="Leadership">
       <div class="container margin-top">
-        <section *ngIf="!leadersLoaded || !officersLoaded || !mythicCoreLoaded">
+        <section *ngIf="!leadersLoaded || !officersLoaded">
           <mat-progress-spinner mode='indeterminate' style="margin: 20% auto"></mat-progress-spinner>
         </section>
-        <section *ngIf="leadersLoaded && officersLoaded && mythicCoreLoaded">
+        <section *ngIf="leadersLoaded && officersLoaded">
           <div style="text-align: center"><h2 class="text-white"> Guild Leaders</h2></div>
           <div class="content guild-leader-container" *ngIf="guildMasterRoster && guildMasterRoster.length> 0">
             <div *ngFor="let member of guildMasterRoster">
