@@ -97,7 +97,7 @@ export class RosterComponent implements OnInit {
     allResults.forEach(result => {
       this.guildMasterRoster.forEach(leader => {
         if (leader.name === result.character.name) {
-          leader.render_url = result.render_url;
+          leader.render_url = result.assets[2].value;
         }
       })
     });
@@ -110,6 +110,9 @@ export class RosterComponent implements OnInit {
       this.officerRoster.forEach(officer => {
         if (officer.name === result.character.name) {
           officer.render_url = result.render_url;
+          if (!officer.render_url) {
+            officer.render_url = result.assets[2].value;
+          }
         }
       })
     });
@@ -122,6 +125,9 @@ export class RosterComponent implements OnInit {
       this.mythicCoreRoster.forEach(character => {
         if (character.name === result.character.name) {
           character.render_url = result.render_url;
+          if (!character.render_url) {
+            character.render_url = result.assets[2].value;
+          }
         }
       })
     });
