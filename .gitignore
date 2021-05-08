@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/Thought Website/ClientApp/src/app/interfaces/ICharacterRender.js.map
+/Thought Website/ClientApp/src/app/interfaces/ICharacterRender.js
