@@ -31,11 +31,11 @@ import { LogsComponent } from "./logs/logs.component";
 import { GuidesComponent } from "./guides/guides.component";
 import { MPlusComponent } from "./mplus/mplus.component";
 import { RosterComponent } from "./roster/roster.component";
+import { ApplyComponent } from "./apply/apply.component";
 
 import * as firebase from "firebase";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormatDatePipe } from "./pipes/format-date.pipe";
-
 const config = {
   apiKey: "AIzaSyDBcA2NdaZ-s-tVi0zyQi1YPjW4T0IP83c",
   authDomain: "thought-website.firebaseapp.com",
@@ -60,6 +60,7 @@ var functions = firebase.functions();
     GuidesComponent,
     MPlusComponent,
     RosterComponent,
+    ApplyComponent,
     FormatDatePipe,
   ],
   imports: [
@@ -74,6 +75,7 @@ var functions = firebase.functions();
       { path: 'logs', component: LogsComponent },
       { path: 'guides', component: GuidesComponent },
       { path: 'roster', component: RosterComponent },
+      { path: 'apply', component: ApplyComponent },
       { path : '**', pathMatch: 'full', redirectTo: ''},
 
     ]),
